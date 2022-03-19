@@ -1,0 +1,6 @@
+# Ignore dependency root
+/node_modules/
+
+# Ignore build output
+/build/
+/target/

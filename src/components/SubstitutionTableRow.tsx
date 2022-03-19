@@ -1,4 +1,4 @@
-import Substitution from "../types/Substitution";
+import { Substitution } from "../types/Substitution";
 
 interface ISubstitutionTableRowProps {
   substitution: Substitution;

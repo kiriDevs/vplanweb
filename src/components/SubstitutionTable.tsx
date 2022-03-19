@@ -1,5 +1,5 @@
 import Table from "react-bootstrap/Table";
-import Substitution from "../types/Substitution";
+import { Substitution } from "../types/Substitution";
 import SubstitutionTableRow from "./SubstitutionTableRow";
 
 interface ISubstitutionTableProps {

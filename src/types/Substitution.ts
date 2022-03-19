@@ -10,9 +10,9 @@ type Substitution = {
   note: string;
 };
 
-const fromAPI = (api: APISubstitution): Substitution => ({
+const makeSubstitutionFromAPI = (api: APISubstitution): Substitution => ({
   ...api,
-  period: parseInt(api.subject)
+  period: parseInt(api.period)
 });
 
-export default Substitution;
+export { type Substitution, makeSubstitutionFromAPI };

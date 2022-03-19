@@ -15,5 +15,6 @@ vscode:
     - formulahendry.auto-rename-tag
 github:
   prebuilds:
+    branches: true
     addBadge: true
     addCheck: false

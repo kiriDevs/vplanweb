@@ -22,7 +22,7 @@ RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; nvm install v16.14.0; nvm use -
 
 # Cache project dependencies for faster installation during first startup
 RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm cache add @types/node @types/react @types/react-dom"
-RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm cache add react react-dom react-scripts typescript prettier"
+RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm cache add react react-dom react-scripts typescript prettier axios"
 RUN su -l gitpod -c ". /home/vscode/.nvm/nvm.sh; npm cache add react-bootstrap bootstrap@5.1.3"
 # Install default global packages
 RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm install -g typescript prettier"

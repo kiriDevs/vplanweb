@@ -1,5 +1,5 @@
 image:
-  file: .devcontainer/Dockerfile
+  file: .devcontainer/Dockerfile.gp
 ports:
   - port: 3000
     onOpen: open-browser

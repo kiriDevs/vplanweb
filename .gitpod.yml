@@ -1,0 +1,19 @@
+image:
+  file: .devcontainer/Dockerfile
+ports:
+  - port: 3000
+    onOpen: open-browser
+    visibility: private
+tasks:
+  - name: Set up workspace
+    init: npm install --prefix
+    command: npm run devstart
+vscode:
+  extensions:
+    - esbenp.prettier-vscode
+    - formulahendry.auto-close-tag
+    - formulahendry.auto-rename-tag
+github:
+  prebuilds:
+    addBadge: true
+    addCheck: false

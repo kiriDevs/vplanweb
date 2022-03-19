@@ -1,5 +1,5 @@
 image:
-  file: .devcontainer/Dockerfile.gp
+  file: .devcontainer/Gitpod.Dockerfile
 ports:
   - port: 3000
     onOpen: open-browser

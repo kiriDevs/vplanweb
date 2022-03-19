@@ -1,0 +1,33 @@
+{
+  "name": "[CS4KD] JS/TS Codespace",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "settings": {
+    // settings are located in and loaded from /.vscode/settings.json
+  },
+
+  "extensions": [
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag"
+  ],
+
+  "postCreateCommand": "npm install --prefix /workspaces/vplanweb",
+
+  "remoteUser": "vscode",
+  "features": {
+    "git": "os-provided",
+    "github-cli": "latest",
+    "sshd": "latest"
+  },
+
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "React DevServer",
+      "onAutoForward": "openBrowserOnce"
+    }
+  }
+}

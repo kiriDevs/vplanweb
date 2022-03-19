@@ -29,5 +29,3 @@ RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm install -g typescript prett
 # Clean up installation files
 WORKDIR /
 RUN rm -rfd /setup
-
-USER gitpod

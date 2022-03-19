@@ -1,8 +1,6 @@
 import axios from "axios";
-import { SyntheticEvent, useState } from "react";
 import { Alert, Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { APIError, makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
-import APIResponse from "../types/api/APIResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";

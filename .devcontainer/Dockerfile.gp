@@ -1,4 +1,5 @@
 FROM gitpod/workspace-base
+USER root
 
 # Setup NeoVim
 RUN mkdir -p /setup/nvim/

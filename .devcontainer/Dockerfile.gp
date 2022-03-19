@@ -9,6 +9,9 @@ RUN tar -xzvf /setup/nvim/nvim-linux64.tar.gz
 # Merge files into fs-root
 RUN cp -r /setup/nvim/nvim-linux64/* /
 
+# Create gitpod user
+RUN adduser gitpod --gecos "" --disabled-password
+
 # Set up NVM
 RUN mkdir -p /setup/nvm && chown -R gitpod:gitpod /setup/nvm
 RUN su -l gitpod -c "curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh -o /setup/nvm/install.sh"

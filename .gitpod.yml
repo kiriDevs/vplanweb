@@ -6,7 +6,7 @@ ports:
     visibility: private
 tasks:
   - name: Set up workspace
-    init: npm install --prefix
+    init: npm install
     command: npm run devstart
 vscode:
   extensions:

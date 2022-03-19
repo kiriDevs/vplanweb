@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-buster
+FROM gitpod/workspace-base
 
 # Setup NeoVim
 RUN mkdir -p /setup/nvim/
@@ -8,9 +8,6 @@ RUN wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.
 RUN tar -xzvf /setup/nvim/nvim-linux64.tar.gz
 # Merge files into fs-root
 RUN cp -r /setup/nvim/nvim-linux64/* /
-
-# Create gitpod user
-RUN adduser gitpod --gecos "" --disabled-password
 
 # Set up NVM
 RUN mkdir -p /setup/nvm && chown -R gitpod:gitpod /setup/nvm

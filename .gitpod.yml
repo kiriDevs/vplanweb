@@ -1,12 +1,13 @@
 image:
-  file: .devcontainer/Dockerfile.gp
+  file: .devcontainer/Gitpod.Dockerfile
 ports:
   - port: 3000
     onOpen: open-browser
     visibility: private
 tasks:
   - name: Set up workspace
-    init: npm install --prefix
+    init: npm install
+  - name: React DevServer
     command: npm run devstart
 vscode:
   extensions:
@@ -15,5 +16,6 @@ vscode:
     - formulahendry.auto-rename-tag
 github:
   prebuilds:
+    branches: true
     addBadge: true
     addCheck: false

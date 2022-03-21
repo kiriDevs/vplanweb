@@ -31,6 +31,7 @@ const App = () => {
     }
 
     setApiErrored(false);
+    setApiSuccess(false);
     setLoading(true);
     axios
       .get("https://api.chuangsheep.com/vplan", {

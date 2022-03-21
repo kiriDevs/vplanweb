@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { APIError, makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
@@ -12,11 +12,16 @@ const App = () => {
   const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
-  const [auth, setAuth] = useState("TESTTOKEN");
+  const [auth, setAuth] = useState(window.localStorage.getItem("auth.token") ?? "");
 
   const [apiError, setApiError] = useState({} as APIError);
   const [apiErrored, setApiErrored] = useState(false);
   const [apiSuccess, setApiSuccess] = useState(false);
+
+  // Save auth token whenever it is changed
+  useEffect(() => {
+    window.localStorage.setItem("auth.token", auth);
+  }, [auth]);
 
   const makeRequest = () => {
     if (loading) {

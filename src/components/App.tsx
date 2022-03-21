@@ -9,6 +9,8 @@ import handleInputChange from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
 
+import "../styles/home.css";
+
 const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.0";
 
 const App = () => {
@@ -95,6 +97,8 @@ const App = () => {
 
   return (
     <>
+      <h1 id="homeHeading">VPlan</h1>
+
       <ListGroup>
         <ListGroup.Item>
           <Form>

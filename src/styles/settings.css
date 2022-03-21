@@ -1,0 +1,15 @@
+#settingsHeading {
+  margin: 0.5em;
+}
+
+#settingsMenuStrip {
+  margin: 1em;
+}
+
+#settingsResetButtonContainer {
+  width: 100%;
+}
+
+#settingsResetButton {
+  margin: 1em;
+}

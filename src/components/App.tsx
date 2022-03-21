@@ -5,23 +5,23 @@ import { APIError, makeApiErrorFromAxiosError } from "../types/api/APIErrorRespo
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
+import handleInputChange from "../util/handleInputChange";
+import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
+
+const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.0";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
-  const [auth, setAuth] = useState(window.localStorage.getItem("auth.token") ?? "");
 
   const [apiError, setApiError] = useState({} as APIError);
   const [apiErrored, setApiErrored] = useState(false);
   const [apiSuccess, setApiSuccess] = useState(false);
 
-  // Save auth token whenever it is changed
-  useEffect(() => {
-    window.localStorage.setItem("auth.token", auth);
-  }, [auth]);
+  const [showingSettings, showSettings] = useState(false);
 
   const makeRequest = () => {
     if (loading) {
@@ -34,7 +34,7 @@ const App = () => {
       .get("https://api.chuangsheep.com/vplan", {
         params: { date: date },
         headers: {
-          Authorization: `Bearer ${auth}`
+          Authorization: `Bearer ${window.localStorage.getItem("auth.token")}`
         }
       })
       .then((res) => {
@@ -53,13 +53,45 @@ const App = () => {
       });
   };
 
-  const handleDateInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(event.currentTarget.value);
+  const initializeStorage = () => {
+    window.localStorage.clear();
+    window.localStorage.setItem("storage.ls.version", "1.0");
   };
 
-  const handleAuthInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.currentTarget.value);
-  };
+  // Validating localStorage when the App component is mounted
+  useEffect(() => {
+    const storageVersion = window.localStorage.getItem("storage.ls.version");
+    if (!storageVersion) {
+      // No storage exists so far
+      initializeStorage();
+    } else if (storageVersion === CURRENT_LOCALSTORAGE_SCHEMA_VERSION) {
+      // The storage is on the latest schema version - we're done here
+      return;
+      /*
+    } else if (storageVersion === "0.0") {
+      alert("Your localStorage was migrated to a new schema version!");
+    */
+    } else {
+      alert(
+        "Your localStorage is outdated and its version is no longer supported for migration. " +
+          "Your localStorage will be re-initialized. You will have to re-configure the app. " +
+          "Sorry for the inconvenience :c"
+      );
+      initializeStorage();
+    }
+  }, []);
+
+  if (showingSettings) {
+    return (
+      <SettingsScreen
+        dismiss={() => {
+          showSettings(false);
+        }}
+        resetStorage={initializeStorage}
+        currentStorageSchemeVersion={CURRENT_LOCALSTORAGE_SCHEMA_VERSION}
+      />
+    );
+  }
 
   return (
     <>
@@ -69,49 +101,53 @@ const App = () => {
             <Stack direction="horizontal" gap={5}>
               <Form.Group>
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="text" placeholder="21.03.22" onChange={handleDateInputChange} value={date} />
+                <Form.Control type="text" placeholder="21.03.22" onChange={handleInputChange(setDate)} value={date} />
                 <Form.Text>The date to request the VPlan for</Form.Text>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Auth</Form.Label>
-                <Form.Control
-                  plaintext={false}
-                  placeholder="TmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA="
-                  onChange={handleAuthInputChange}
-                  value={auth}
-                />
-                <Form.Text>You can get an AuthToken for the API from ChuangSheep!</Form.Text>
               </Form.Group>
 
               <div className="vr ms-auto" />
               <Spinner animation="border" size="sm" hidden={!loading} />
               <Button onClick={makeRequest}>Request</Button>
+              <Button
+                onClick={() => {
+                  showSettings(true);
+                }}
+                variant="secondary"
+              >
+                Settings
+              </Button>
             </Stack>
           </Form>
 
           {apiErrored && (
-            <Alert
-              variant="danger"
-              onClose={() => {
-                setApiErrored(false);
-              }}
-              dismissible
-            >
-              <strong>{apiError.message}</strong>
+            <>
               <br />
-              {apiError.description}
-            </Alert>
+              <Alert
+                variant="danger"
+                onClose={() => {
+                  setApiErrored(false);
+                }}
+                dismissible
+              >
+                <strong>{apiError.message}</strong>
+                <br />
+                {apiError.description}
+              </Alert>
+            </>
           )}
           {apiSuccess && (
-            <Alert
-              variant="success"
-              onClose={() => {
-                setApiSuccess(false);
-              }}
-              dismissible
-            >
-              Successfully fetched {renderedSubstitutions.length} entries.
-            </Alert>
+            <>
+              <br />
+              <Alert
+                variant="success"
+                onClose={() => {
+                  setApiSuccess(false);
+                }}
+                dismissible
+              >
+                Successfully fetched {renderedSubstitutions.length} entries.
+              </Alert>
+            </>
           )}
         </ListGroup.Item>
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Alert, Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
+import { Alert, Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { APIError, makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";
@@ -8,6 +8,7 @@ import DateFormatter from "../util/DateFormatter";
 import handleInputChange from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
+import { IoSend } from "react-icons/io5";
 
 import "../styles/home.css";
 
@@ -108,30 +109,32 @@ const App = () => {
               makeRequest();
             }}
           >
-            <Stack direction="horizontal" gap={5}>
-              <Form.Group>
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder={DateFormatter.apiDateString(new Date())}
-                  onChange={handleInputChange(setDate)}
-                  value={date}
-                />
-                <Form.Text>The date to request the VPlan for</Form.Text>
-              </Form.Group>
+            <Form.Group>
+              <Form.Label>Date</Form.Label>
+              <Stack direction="horizontal" gap={3}>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    placeholder={DateFormatter.apiDateString(new Date())}
+                    onChange={handleInputChange(setDate)}
+                    value={date}
+                  />
+                  <InputGroup.Text onClick={makeRequest} className="bg-primary text-white">
+                    {loading ? <Spinner animation="border" size="sm" /> : <IoSend />}
+                  </InputGroup.Text>
+                </InputGroup>
 
-              <div className="vr ms-auto" />
-              <Spinner animation="border" size="sm" hidden={!loading} />
-              <Button onClick={makeRequest}>Request</Button>
-              <Button
-                onClick={() => {
-                  showSettings(true);
-                }}
-                variant="secondary"
-              >
-                Settings
-              </Button>
-            </Stack>
+                <Button
+                  onClick={() => {
+                    showSettings(true);
+                  }}
+                  variant="secondary"
+                >
+                  Settings
+                </Button>
+              </Stack>
+              <Form.Text>The date to request the VPlan for</Form.Text>
+            </Form.Group>
           </Form>
 
           {apiErrored && (

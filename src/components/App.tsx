@@ -111,7 +111,12 @@ const App = () => {
             <Stack direction="horizontal" gap={5}>
               <Form.Group>
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="text" placeholder="21.03.22" onChange={handleInputChange(setDate)} value={date} />
+                <Form.Control
+                  type="text"
+                  placeholder={DateFormatter.apiDateString(new Date())}
+                  onChange={handleInputChange(setDate)}
+                  value={date}
+                />
                 <Form.Text>The date to request the VPlan for</Form.Text>
               </Form.Group>
 

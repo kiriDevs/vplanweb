@@ -1,6 +1,14 @@
 name: Check Code Style
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - "/src/**"
+      - "/public/**"
+  pull_request:
+    paths:
+      - "/src/**"
+      - "/public/**"
 
 jobs:
   prettier:

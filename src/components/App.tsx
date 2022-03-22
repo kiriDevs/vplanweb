@@ -102,7 +102,12 @@ const App = () => {
 
       <ListGroup>
         <ListGroup.Item>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              makeRequest();
+            }}
+          >
             <Stack direction="horizontal" gap={5}>
               <Form.Group>
                 <Form.Label>Date</Form.Label>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Alert, Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
-import { APIError, makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
+import { Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
+import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
@@ -9,6 +9,8 @@ import handleInputChange from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
+import RequestFeedbackAlert from "./RequestFeedbackAlert";
+import RequestFeedback from "../types/RequestFeedback";
 
 import "../styles/home.css";
 
@@ -19,10 +21,7 @@ const App = () => {
   const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
-
-  const [apiError, setApiError] = useState({} as APIError);
-  const [apiErrored, setApiErrored] = useState(false);
-  const [apiSuccess, setApiSuccess] = useState(false);
+  const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
 
   const [showingSettings, showSettings] = useState(false);
 
@@ -31,8 +30,7 @@ const App = () => {
       return;
     }
 
-    setApiErrored(false);
-    setApiSuccess(false);
+    setRequestFeedback({ type: "none" });
     setLoading(true);
     axios
       .get("https://api.chuangsheep.com/vplan", {
@@ -48,11 +46,10 @@ const App = () => {
         });
         renderSubstitutions(substitutions);
         setLoading(false);
-        setApiSuccess(true);
+        setRequestFeedback({ type: "success", entryCount: substitutions.length });
       })
       .catch((err) => {
-        setApiError(makeApiErrorFromAxiosError(err));
-        setApiErrored(true);
+        setRequestFeedback({ type: "error", error: makeApiErrorFromAxiosError(err) });
         setLoading(false);
       });
   };
@@ -137,36 +134,12 @@ const App = () => {
             </Form.Group>
           </Form>
 
-          {apiErrored && (
-            <>
-              <br />
-              <Alert
-                variant="danger"
-                onClose={() => {
-                  setApiErrored(false);
-                }}
-                dismissible
-              >
-                <strong>{apiError.message}</strong>
-                <br />
-                {apiError.description}
-              </Alert>
-            </>
-          )}
-          {apiSuccess && (
-            <>
-              <br />
-              <Alert
-                variant="success"
-                onClose={() => {
-                  setApiSuccess(false);
-                }}
-                dismissible
-              >
-                Successfully fetched {renderedSubstitutions.length} entries.
-              </Alert>
-            </>
-          )}
+          <RequestFeedbackAlert
+            dismiss={() => {
+              setRequestFeedback({ type: "none" });
+            }}
+            feedback={requestFeedback}
+          />
         </ListGroup.Item>
 
         <ListGroup.Item>

@@ -18,7 +18,7 @@ RUN su -l gitpod -c "curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/i
 RUN su -l gitpod -c "chmod +x /setup/nvm/install.sh && /setup/nvm/install.sh"
 
 # Install node and npm via nvm
-RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; cd /workspace/vplanweb; nvm install; nvm use --delete-prefix"
+RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; nvm install v16.14.0; nvm use --delete-prefix v16.14.0"
 
 # Cache project dependencies for faster installation during first startup
 RUN su -l gitpod -c ". /home/gitpod/.nvm/nvm.sh; npm cache add @types/node @types/react @types/react-dom"

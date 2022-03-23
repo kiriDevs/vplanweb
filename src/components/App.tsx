@@ -59,7 +59,7 @@ const App = () => {
 
   const initializeStorage = () => {
     window.localStorage.clear();
-    window.localStorage.setItem("storage.ls.version", "1.0");
+    window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
   };
 
   // Validating localStorage when the App component is mounted

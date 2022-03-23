@@ -147,8 +147,7 @@ const App = () => {
                 }}
                 dismissible
               >
-                <strong>{apiError.message}</strong>
-                <br />
+                <Alert.Heading>{apiError.message}</Alert.Heading>
                 {apiError.description}
               </Alert>
             </>

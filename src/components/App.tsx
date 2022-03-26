@@ -116,9 +116,15 @@ const App = () => {
                     onChange={handleInputChange(setDate)}
                     value={date}
                   />
-                  <InputGroup.Text onClick={makeRequest} className="bg-primary text-white">
-                    {loading ? <Spinner animation="border" size="sm" /> : <IoSend />}
-                  </InputGroup.Text>
+                  {loading ? (
+                    <InputGroup.Text className="bg-secondary text-white">
+                      <Spinner animation="border" size="sm" />
+                    </InputGroup.Text>
+                  ) : (
+                    <InputGroup.Text onClick={makeRequest} className="bg-primary text-white">
+                      <IoSend />
+                    </InputGroup.Text>
+                  )}
                 </InputGroup>
 
                 <Button

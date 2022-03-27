@@ -68,10 +68,13 @@ const App = () => {
     } else if (storageVersion === CURRENT_LOCALSTORAGE_SCHEMA_VERSION) {
       // The storage is on the latest schema version - we're done here
       return;
-      /*
-    } else if (storageVersion === "0.0") {
+    } else if (storageVersion === "1.0") {
+      // YAAAY let's migrate from version 1.0
+      window.localStorage.setItem("filter.class", "");
+      window.localStorage.setItem("filter.subjects", JSON.stringify([]));
+
+      window.localStorage.setItem("storage.ls.version", "1.1");
       alert("Your localStorage was migrated to a new schema version!");
-    */
     } else {
       alert(
         "Your localStorage is outdated and its version is no longer supported for migration. " +

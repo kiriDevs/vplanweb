@@ -24,6 +24,7 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => (
         <SubstitutionTableRow
           key={`#-st-str-${substitution.period}${substitution.absent}`}
           substitution={substitution}
+          highlighted={false}
         />
       ))}
     </tbody>

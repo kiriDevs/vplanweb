@@ -57,6 +57,7 @@ const App = () => {
   const initializeStorage = () => {
     window.localStorage.clear();
     window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
+    window.localStorage.setItem("auth.token", "");
   };
 
   // Validating localStorage when the App component is mounted

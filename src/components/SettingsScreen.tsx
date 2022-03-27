@@ -19,7 +19,11 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
   const saveSettings = () => {
     window.localStorage.setItem("storage.ls.version", props.currentStorageSchemeVersion);
+
     window.localStorage.setItem("auth.token", authInput);
+    window.localStorage.setItem("filter.class", classInput);
+    window.localStorage.setItem("filter.subjects", JSON.stringify(subjectsInput.filter((v: string) => v !== "")));
+
     props.dismiss();
   };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, ListGroup, Button, Stack, ButtonGroup, InputGroup, Alert } from "react-bootstrap";
+import { AiFillDelete, AiOutlinePlus, AiOutlineExclamation } from "react-icons/ai";
 
 import "../styles/settings.css";
 import handleInputChange from "../util/handleInputChange";
@@ -115,7 +116,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
                       onChange={setSubjectInputValue(index)}
                     />
                     <Button variant="danger" onClick={handleSubjectDeleteButtonClick(index)}>
-                      X
+                      <AiFillDelete />
                     </Button>
                   </InputGroup>
                 </Form.Group>
@@ -128,7 +129,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
                   setSubjectsInput(newSubjectsInput);
                 }}
               >
-                + Add another subject
+                <AiOutlinePlus /> Add another subject
               </Button>
 
               <Alert variant="secondary">
@@ -146,7 +147,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
       <ButtonGroup id="settingsResetButtonContainer">
         <Button id="settingsResetButton" onClick={handleResetSettingsButtonClick} variant="danger">
-          Reset Settings
+          <AiOutlineExclamation /> Reset Settings
         </Button>
       </ButtonGroup>
     </>

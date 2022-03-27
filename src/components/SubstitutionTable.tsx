@@ -22,7 +22,7 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => (
     <tbody>
       {props.substitutions.map((substitution: Substitution) => (
         <SubstitutionTableRow
-          key={`#-st-str-${substitution.period}${substitution.class}${substitution.subject}`}
+          key={`#-st-str-${substitution.period}${substitution.absent}`}
           substitution={substitution}
         />
       ))}

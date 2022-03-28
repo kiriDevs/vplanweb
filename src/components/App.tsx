@@ -82,13 +82,13 @@ const App = () => {
       // YAAAY let's migrate from version 1.0
       window.localStorage.setItem("filter.class", "");
       window.localStorage.setItem("filter.subjects", JSON.stringify([]));
-      window.localStorage.setItem("filter", JSON.stringify("false"));
+      window.localStorage.setItem("filter", JSON.stringify(false));
 
       window.localStorage.setItem("storage.ls.version", "1.2");
       alert("Your localStorage was migrated to a new schema version!");
     } else if (storageVersion === "1.1") {
       // Migrate from version 1.1
-      window.localStorage.setItem("filter", JSON.stringify("false"));
+      window.localStorage.setItem("filter", JSON.stringify(false));
 
       window.localStorage.setItem("storage.ls.version", "1.2");
       alert("Your localStorage was migrated to a new schema version!");

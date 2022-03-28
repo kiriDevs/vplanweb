@@ -4,6 +4,7 @@ import SubstitutionTableRow from "./SubstitutionTableRow";
 
 interface ISubstitutionTableProps {
   substitutions: Substitution[];
+  relevantOnly: boolean;
 }
 
 const SubstitutionTable = (props: ISubstitutionTableProps) => {
@@ -28,13 +29,15 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {props.substitutions.map((substitution: Substitution) => (
-          <SubstitutionTableRow
-            key={`#-st-str-${substitution.period}${substitution.absent}`}
-            substitution={substitution}
-            highlighted={isRelevant(substitution)}
-          />
-        ))}
+        {props.substitutions
+          .filter((substitution: Substitution) => !props.relevantOnly || isRelevant(substitution))
+          .map((substitution: Substitution) => (
+            <SubstitutionTableRow
+              key={`#-st-str-${substitution.period}${substitution.absent}`}
+              substitution={substitution}
+              highlighted={!props.relevantOnly && isRelevant(substitution)}
+            />
+          ))}
       </tbody>
     </Table>
   );

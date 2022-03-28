@@ -4,4 +4,10 @@ const handleInputChange = (hook: (newValue: string) => void) => {
   };
 };
 
-export default handleInputChange;
+const handleCheckoxChange = (hook: (newValue: boolean) => void) => {
+  return (updateEvent: React.ChangeEvent<HTMLInputElement>) => {
+    hook(updateEvent.currentTarget.checked);
+  };
+};
+
+export { handleInputChange, handleCheckoxChange };

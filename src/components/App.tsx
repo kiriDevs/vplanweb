@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
+import Spinner from "react-bootstrap/Spinner";
+import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
-import handleInputChange from "../util/handleInputChange";
+import { handleCheckoxChange, handleInputChange } from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
@@ -14,7 +19,7 @@ import RequestFeedback from "../types/RequestFeedback";
 
 import "../styles/home.css";
 
-const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.1";
+const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.2";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -22,6 +27,7 @@ const App = () => {
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
+  const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
 
   const [showingSettings, showSettings] = useState(false);
 
@@ -60,6 +66,12 @@ const App = () => {
     window.localStorage.setItem("auth.token", "");
     window.localStorage.setItem("filter.class", "");
     window.localStorage.setItem("filter.subjects", JSON.stringify([]));
+    window.localStorage.setItem("filter", JSON.stringify(false));
+  };
+
+  const handleFilterSwitch = (newValue: boolean) => {
+    filterRelevant(newValue);
+    window.localStorage.setItem("filter", JSON.stringify(newValue));
   };
 
   // Validating localStorage when the App component is mounted
@@ -75,8 +87,15 @@ const App = () => {
       // YAAAY let's migrate from version 1.0
       window.localStorage.setItem("filter.class", "");
       window.localStorage.setItem("filter.subjects", JSON.stringify([]));
+      window.localStorage.setItem("filter", JSON.stringify(false));
 
-      window.localStorage.setItem("storage.ls.version", "1.1");
+      window.localStorage.setItem("storage.ls.version", "1.2");
+      alert("Your localStorage was migrated to a new schema version!");
+    } else if (storageVersion === "1.1") {
+      // Migrate from version 1.1
+      window.localStorage.setItem("filter", JSON.stringify(false));
+
+      window.localStorage.setItem("storage.ls.version", "1.2");
       alert("Your localStorage was migrated to a new schema version!");
     } else {
       alert(
@@ -144,6 +163,12 @@ const App = () => {
               </Stack>
               <Form.Text>The date to request the VPlan for</Form.Text>
             </Form.Group>
+            <br />
+            <Form.Switch
+              label="Only display relevant entries"
+              checked={filteringRelevant}
+              onChange={handleCheckoxChange(handleFilterSwitch)}
+            />
           </Form>
 
           <RequestFeedbackAlert
@@ -155,7 +180,7 @@ const App = () => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <SubstitutionTable substitutions={renderedSubstitutions} />
+          <SubstitutionTable substitutions={renderedSubstitutions} relevantOnly={filteringRelevant} />
         </ListGroup.Item>
 
         <ListGroup.Item>

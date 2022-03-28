@@ -12,6 +12,15 @@ RUN tar -xzvf /setup/nvim/nvim-linux64.tar.gz
 # Merge files into fs-root
 RUN rsync /setup/nvim/nvim-linux64/* /
 
+# Setup GitHub CLI
+RUN mkdir -p /setup/gh/
+WORKDIR /setup/gh
+# Download and extract archive
+RUN wget https://github.com/cli/cli/releases/download/v2.6.0/gh_2.6.0_linux_amd64.tar.gz
+RUN tar -xzvf /setup/gh/gh_2.6.0_linux_amd64.tar.gz
+# Merge files into fs-root
+RUN rsync /setup/gh/gh_2.6.0_linux_amd64/* /
+
 # Set up NVM
 RUN mkdir -p /setup/nvm && chown -R gitpod:gitpod /setup/nvm
 RUN su -l gitpod -c "curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh -o /setup/nvm/install.sh"

@@ -15,7 +15,9 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   const [authInput, setAuthInput] = useState(window.localStorage.getItem("auth.token") ?? "");
 
   const [classInput, setClassInput] = useState(window.localStorage.getItem("filter.class") ?? "");
-  const [subjectsInput, setSubjectsInput] = useState(JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]"));
+  const [subjectsInput, setSubjectsInput] = useState(
+    JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]")
+  );
 
   useEffect(() => {
     document.title = "VPlan | Settings";

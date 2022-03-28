@@ -14,7 +14,7 @@ import RequestFeedback from "../types/RequestFeedback";
 
 import "../styles/home.css";
 
-const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.1";
+const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.2";
 
 const App = () => {
   const [loading, setLoading] = useState(false);

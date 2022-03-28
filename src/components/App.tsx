@@ -22,7 +22,7 @@ const App = () => {
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
-  const [filteringRelevant, filterRelevant] = useState(false);
+  const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
 
   const [showingSettings, showSettings] = useState(false);
 
@@ -61,7 +61,12 @@ const App = () => {
     window.localStorage.setItem("auth.token", "");
     window.localStorage.setItem("filter.class", "");
     window.localStorage.setItem("filter.subjects", JSON.stringify([]));
-    window.localStorage.setItem("filter.byDefault", JSON.stringify(false));
+    window.localStorage.setItem("filter", JSON.stringify(false));
+  };
+
+  const handleFilterSwitch = (newValue: boolean) => {
+    filterRelevant(newValue);
+    window.localStorage.setItem("filter", JSON.stringify(newValue));
   };
 
   // Validating localStorage when the App component is mounted
@@ -77,13 +82,13 @@ const App = () => {
       // YAAAY let's migrate from version 1.0
       window.localStorage.setItem("filter.class", "");
       window.localStorage.setItem("filter.subjects", JSON.stringify([]));
-      window.localStorage.setItem("filter.byDefault", JSON.stringify("false"));
+      window.localStorage.setItem("filter", JSON.stringify("false"));
 
       window.localStorage.setItem("storage.ls.version", "1.2");
       alert("Your localStorage was migrated to a new schema version!");
     } else if (storageVersion === "1.1") {
       // Migrate from version 1.1
-      window.localStorage.setItem("filter.byDefault", JSON.stringify("false"));
+      window.localStorage.setItem("filter", JSON.stringify("false"));
 
       window.localStorage.setItem("storage.ls.version", "1.2");
       alert("Your localStorage was migrated to a new schema version!");
@@ -157,7 +162,7 @@ const App = () => {
             <Form.Switch
               label="Only display relevant entries"
               checked={filteringRelevant}
-              onChange={handleCheckoxChange(filterRelevant)}
+              onChange={handleCheckoxChange(handleFilterSwitch)}
             />
           </Form>
 

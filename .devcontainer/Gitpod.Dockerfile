@@ -19,6 +19,7 @@ WORKDIR /setup/gh
 RUN wget https://github.com/cli/cli/releases/download/v2.6.0/gh_2.6.0_linux_amd64.tar.gz
 RUN tar -xzvf /setup/gh/gh_2.6.0_linux_amd64.tar.gz
 # Merge files into fs-root
+RUN rm /setup/gh/gh_2.6.0_linux_amd64/LICENSE
 RUN rsync -a /setup/gh/gh_2.6.0_linux_amd64/* /
 
 # Set up NVM

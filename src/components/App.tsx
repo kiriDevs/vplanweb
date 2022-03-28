@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
-import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
+import { makeSubstitutionFromAPI } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
 import { handleCheckoxChange, handleInputChange } from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";

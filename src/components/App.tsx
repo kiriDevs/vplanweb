@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
-import { makeSubstitutionFromAPI } from "../types/Substitution";
+import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
 import handleInputChange from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
@@ -22,6 +22,7 @@ const App = () => {
 
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
+  const [filteringRelevant, filterRelevant] = useState(false);
 
   const [showingSettings, showSettings] = useState(false);
 
@@ -155,7 +156,7 @@ const App = () => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <SubstitutionTable substitutions={renderedSubstitutions} />
+          <SubstitutionTable substitutions={renderedSubstitutions} relevantOnly={filteringRelevant} />
         </ListGroup.Item>
 
         <ListGroup.Item>

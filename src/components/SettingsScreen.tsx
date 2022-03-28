@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Form, ListGroup, Button, Stack, ButtonGroup, InputGroup, Alert } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
+import Stack from "react-bootstrap/Stack";
 import { AiFillDelete, AiOutlinePlus, AiOutlineExclamation } from "react-icons/ai";
 
 import "../styles/settings.css";

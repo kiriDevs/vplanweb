@@ -145,6 +145,12 @@ const App = () => {
               </Stack>
               <Form.Text>The date to request the VPlan for</Form.Text>
             </Form.Group>
+            <br />
+            <Form.Switch
+              label="Only display relevant entries"
+              checked={filteringRelevant}
+              onChange={handleCheckoxChange(filterRelevant)}
+            />
           </Form>
 
           <RequestFeedbackAlert

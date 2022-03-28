@@ -5,7 +5,7 @@ import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
 import DateFormatter from "../util/DateFormatter";
-import handleInputChange from "../util/handleInputChange";
+import { handleCheckoxChange, handleInputChange } from "../util/handleInputChange";
 import SettingsScreen from "./SettingsScreen";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";

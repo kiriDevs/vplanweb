@@ -3,7 +3,7 @@ import { Form, ListGroup, Button, Stack, ButtonGroup, InputGroup, Alert } from "
 import { AiFillDelete, AiOutlinePlus, AiOutlineExclamation } from "react-icons/ai";
 
 import "../styles/settings.css";
-import handleInputChange from "../util/handleInputChange";
+import { handleInputChange } from "../util/handleInputChange";
 
 interface ISettingsScreenProps {
   dismiss: () => void;

@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Form, InputGroup, ListGroup, Spinner, Stack } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
+import Spinner from "react-bootstrap/Spinner";
+import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI } from "../types/Substitution";

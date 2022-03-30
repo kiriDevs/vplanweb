@@ -9,9 +9,11 @@ interface ISubstitutionTableProps {
 
 const SubstitutionTable = (props: ISubstitutionTableProps) => {
   const isRelevant = (substitution: Substitution) => {
+    const filterCourses = JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]");
+    const filterClass = window.localStorage.getItem("filter.class");
     return (
-      substitution.class === window.localStorage.getItem("filter.class") &&
-      JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]").includes(substitution.subject)
+      (substitution.class === filterClass && filterCourses.includes(substitution.subject)) ||
+      (filterCourses.length === 0 && substitution.class === filterClass)
     );
   };
 

@@ -12,9 +12,9 @@ export const shared: IStorageManager = {
   startup: () => {
     const storageVersion = window.localStorage.getItem("storage.ls.version");
     if (!storageVersion) {
-      module.exports.shared.initialize();
+      shared.initialize();
     } else {
-      const didMigrate = module.exports.shared.migrate(/*from*/ storageVersion);
+      const didMigrate = shared.migrate(/*from*/ storageVersion);
       if (didMigrate) {
         alert("Your localStorage was successfully migrated to a new schema version!");
       } else {

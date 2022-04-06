@@ -5,6 +5,8 @@ import SettingsScreen from "./SettingsScreen";
 
 import { Substitution } from "../types/Substitution";
 
+import "../styles/general.css";
+
 const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.2";
 
 const App = () => {

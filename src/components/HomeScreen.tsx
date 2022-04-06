@@ -8,7 +8,7 @@ import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
-import { handleCheckoxChange, handleInputChange } from "../util/handleInputChange";
+import { handleCheckboxChange, handleInputChange } from "../util/handleInputChange";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";
@@ -111,7 +111,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
             <Form.Switch
               label="Only display relevant entries"
               checked={filteringRelevant}
-              onChange={handleCheckoxChange(handleFilterSwitch)}
+              onChange={handleCheckboxChange(handleFilterSwitch)}
             />
           </Form>
 

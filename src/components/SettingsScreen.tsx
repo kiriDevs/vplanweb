@@ -7,14 +7,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Stack from "react-bootstrap/Stack";
 import { AiFillDelete, AiOutlinePlus, AiOutlineExclamation } from "react-icons/ai";
+import { shared as StorageManager, CURRENT_LOCALSTORAGE_SCHEMA_VERSION } from "../util/StorageManager";
 
 import "../styles/settings.css";
 import { handleInputChange } from "../util/handleInputChange";
 
 interface ISettingsScreenProps {
   dismiss: () => void;
-  resetStorage: () => void;
-  currentStorageSchemeVersion: string;
 }
 
 const SettingsScreen = (props: ISettingsScreenProps) => {
@@ -30,7 +29,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   });
 
   const saveSettings = () => {
-    window.localStorage.setItem("storage.ls.version", props.currentStorageSchemeVersion);
+    window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
 
     window.localStorage.setItem("auth.token", authInput);
     window.localStorage.setItem("filter.class", classInput);
@@ -42,7 +41,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   const handleResetSettingsButtonClick = () => {
     const confirmation = window.confirm("Are you sure you want to remove all settings?");
     if (confirmation) {
-      props.resetStorage();
+      StorageManager.initialize();
       updateInputFields();
     }
   };
@@ -65,9 +64,9 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
   return (
     <>
-      <h1 id="settingsHeading">Settings</h1>
+      <h1 className="vplan-heading">Settings</h1>
 
-      <Stack id="settingsMenuStrip" direction="horizontal">
+      <Stack className="vplan-menustrip" direction="horizontal">
         <Button onClick={saveSettings} variant="primary">
           Save
         </Button>

@@ -1,4 +1,4 @@
-import { APIError } from "./api/APIErrorResponse";
+import { APIError } from "./api/APIError";
 
 type RequestFeedback =
   | {

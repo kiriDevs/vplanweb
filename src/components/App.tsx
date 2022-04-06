@@ -21,8 +21,6 @@ const App = () => {
       dismiss={() => {
         showSettings(false);
       }}
-      resetStorage={initializeStorage}
-      currentStorageSchemeVersion={CURRENT_LOCALSTORAGE_SCHEMA_VERSION}
     />
   ) : (
     <HomeScreen

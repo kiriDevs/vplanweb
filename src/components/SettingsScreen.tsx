@@ -14,8 +14,6 @@ import { handleInputChange } from "../util/handleInputChange";
 
 interface ISettingsScreenProps {
   dismiss: () => void;
-  resetStorage: () => void;
-  currentStorageSchemeVersion: string;
 }
 
 const SettingsScreen = (props: ISettingsScreenProps) => {

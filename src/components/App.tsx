@@ -3,7 +3,7 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 
-import { Substitution } from "../types/Substitution"
+import { Substitution } from "../types/Substitution";
 
 import "../styles/home.css";
 

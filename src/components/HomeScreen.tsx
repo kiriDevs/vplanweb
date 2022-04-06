@@ -5,7 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
 import Stack from "react-bootstrap/Stack";
-import { makeApiErrorFromAxiosError } from "../types/api/APIErrorResponse";
+import { makeApiErrorFromAxiosError } from "../types/api/APIError";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
 import { handleCheckboxChange, handleInputChange } from "../util/handleInputChange";

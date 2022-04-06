@@ -26,6 +26,7 @@ export const shared: IStorageManager = {
             "re-initialized. You will have to re-configure the app. " +
             "Sorry for the inconvenience :c"
         );
+        shared.initialize();
       }
     }
   },

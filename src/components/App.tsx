@@ -21,7 +21,6 @@ const App = () => {
     <SettingsScreen
       dismiss={() => {
         showSettings(false);
-        document.title = "VPlan | Home";
       }}
     />
   ) : (

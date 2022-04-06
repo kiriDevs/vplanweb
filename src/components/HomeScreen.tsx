@@ -16,8 +16,6 @@ import RequestFeedback from "../types/RequestFeedback";
 import { useState, Dispatch, SetStateAction } from "react";
 import DateFormatter from "../util/DateFormatter";
 
-import "../styles/home.css";
-
 interface IHomeScreenProps {
   showSettings: () => void;
   renderedSubstitutions: Substitution[];

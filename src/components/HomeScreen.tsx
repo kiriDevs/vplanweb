@@ -13,7 +13,7 @@ import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";
 import RequestFeedback from "../types/RequestFeedback";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import DateFormatter from "../util/DateFormatter";
 
 interface IHomeScreenProps {
@@ -28,6 +28,12 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
+
+  useEffect(() => {
+    if (loading) {
+      document.title = "VPlan | Loading...";
+    }
+  }, [loading]);
 
   const makeRequest = () => {
     if (loading) {
@@ -51,6 +57,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
         props.renderSubstitutions(substitutions);
         setLoading(false);
         setRequestFeedback({ type: "success", entryCount: substitutions.length });
+        document.title = "VPlan | " + res.data.date;
       })
       .catch((err) => {
         setRequestFeedback({ type: "error", error: makeApiErrorFromAxiosError(err) });

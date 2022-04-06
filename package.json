@@ -17,7 +17,11 @@
   },
   "scripts": {
     "devstart": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "prettier:write": "prettier --write src/",
+    "prettier:check": "prettier --check src/",
+    "prettier:ci": "npx prettier --check src/",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -37,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.6.0"
+    "prettier": "^2.6.0",
+    "husky": "^7.0.0"
   }
 }

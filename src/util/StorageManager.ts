@@ -13,6 +13,8 @@ export const shared: IStorageManager = {
     const storageVersion = window.localStorage.getItem("storage.ls.version");
     if (!storageVersion) {
       shared.initialize();
+    } else if (storageVersion === CURRENT_LOCALSTORAGE_SCHEMA_VERSION) {
+      return;
     } else {
       const didMigrate = shared.migrate(/*from*/ storageVersion);
       if (didMigrate) {

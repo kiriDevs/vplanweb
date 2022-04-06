@@ -29,11 +29,11 @@ export const shared: IStorageManager = {
   },
   initialize: () => {
     window.localStorage.clear();
-    window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
     window.localStorage.setItem("auth.token", "");
     window.localStorage.setItem("filter.class", "");
     window.localStorage.setItem("filter.subjects", JSON.stringify([]));
     window.localStorage.setItem("filter", JSON.stringify(false));
+    window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
   },
   migrate: (from: string) => {
     if (!migrators.has(from)) {

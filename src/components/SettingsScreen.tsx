@@ -25,7 +25,13 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   );
 
   useEffect(() => {
+    const oldTitle = document.title;
     document.title = "VPlan | Settings";
+
+    // Return a clean up function to return the title to the old state
+    return () => {
+      document.title = oldTitle;
+    };
   });
 
   const saveSettings = () => {

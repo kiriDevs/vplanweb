@@ -39,7 +39,10 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
     window.localStorage.setItem("auth.token", authInput);
     window.localStorage.setItem("filter.class", classInput);
-    window.localStorage.setItem("filter.subjects", JSON.stringify(subjectsInput.filter((v: string) => v !== "")));
+    window.localStorage.setItem(
+      "filter.subjects",
+      JSON.stringify(subjectsInput.filter((v: string) => v.trim() !== ""))
+    );
 
     props.dismiss();
   };

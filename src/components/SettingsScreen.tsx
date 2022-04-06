@@ -65,9 +65,9 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
   return (
     <>
-      <h1 id="settingsHeading">Settings</h1>
+      <h1 className="vplan-heading">Settings</h1>
 
-      <Stack id="settingsMenuStrip" direction="horizontal">
+      <Stack className="vplan-menustrip" direction="horizontal">
         <Button onClick={saveSettings} variant="primary">
           Save
         </Button>

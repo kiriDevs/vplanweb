@@ -67,7 +67,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   return (
     <>
-      <h1 id="homeHeading">VPlan</h1>
+      <h1 className="vplan-heading">VPlan</h1>
 
       <ListGroup>
         <ListGroup.Item>

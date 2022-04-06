@@ -19,8 +19,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      #- name: Install dependencies in CI mode
-      #  run: npm ci
-
       - name: Check code style
-        run: npx prettier --check src/ public/
+        run: npm run prettier:ci

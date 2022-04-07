@@ -7,6 +7,7 @@ i18next
   .use(initReactI18next)
   .use(HttpApi)
   .init({
+    supportedLngs: ["en"],
     lng: "en",
     fallbackLng: "en",
     ns: ["common", "HomeScreen", "SettingsScreen"],

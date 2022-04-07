@@ -80,7 +80,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   return (
     <>
-      <h1 className="vplan-heading">{t("title")}</h1>
+      <h1 className="vplan-heading">VPlan</h1>
 
       <ListGroup>
         <ListGroup.Item>

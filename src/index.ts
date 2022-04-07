@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const app = React.createElement(App, { key: "entrypoint" }, []);
+import "./services/i18n";
 
 const fallbackUi = React.createElement("p", {}, "Loading...");
 

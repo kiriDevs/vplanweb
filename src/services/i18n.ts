@@ -9,10 +9,12 @@ i18next
   .init({
     lng: "en",
     fallbackLng: "en",
-    ns: ["common", "home", "settings"],
+    ns: ["common", "HomeScreen", "SettingsScreen"],
     defaultNS: "common",
+    keySeparator: ".",
     interpolation: {
       escapeValue: false
     },
-    debug: process.env.NODE_ENV === "development"
+    debug: process.env.NODE_ENV === "development",
+    joinArrays: " "
   });

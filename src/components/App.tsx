@@ -13,7 +13,6 @@ const App = () => {
   const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   useEffect(() => {
-    document.title = "VPlan | Home";
     StorageManager.startup();
   }, []);
 

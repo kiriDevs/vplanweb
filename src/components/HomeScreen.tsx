@@ -15,6 +15,7 @@ import RequestFeedbackAlert from "./RequestFeedbackAlert";
 import RequestFeedback from "../types/RequestFeedback";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import DateFormatter from "../util/DateFormatter";
+import { Trans, useTranslation } from "react-i18next";
 
 interface IHomeScreenProps {
   showSettings: () => void;
@@ -29,11 +30,18 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
 
+  const { t } = useTranslation("HomeScreen");
+  const { t: tc } = useTranslation("common");
+
+  useEffect(() => {
+    document.title = "VPlan | " + t("title");
+  });
+
   useEffect(() => {
     if (loading) {
-      document.title = "VPlan | Loading...";
+      document.title = "VPlan | " + tc("loading");
     }
-  }, [loading]);
+  }, [loading, tc]);
 
   const makeRequest = () => {
     if (loading) {
@@ -72,7 +80,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   return (
     <>
-      <h1 className="vplan-heading">VPlan</h1>
+      <h1 className="vplan-heading">{t("title")}</h1>
 
       <ListGroup>
         <ListGroup.Item>
@@ -83,7 +91,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
             }}
           >
             <Form.Group>
-              <Form.Label>Date</Form.Label>
+              <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
                 <InputGroup>
                   <Form.Control
@@ -109,14 +117,14 @@ const HomeScreen = (props: IHomeScreenProps) => {
                   }}
                   variant="secondary"
                 >
-                  Settings
+                  {tc("navigation.settings")}
                 </Button>
               </Stack>
-              <Form.Text>The date to request the VPlan for</Form.Text>
+              <Form.Text>{t("dateEntry.description")}</Form.Text>
             </Form.Group>
             <br />
             <Form.Switch
-              label="Only display relevant entries"
+              label={t("filterToggle.description")}
               checked={filteringRelevant}
               onChange={handleCheckboxChange(handleFilterSwitch)}
             />
@@ -137,10 +145,14 @@ const HomeScreen = (props: IHomeScreenProps) => {
         <ListGroup.Item>
           <Stack>
             <p>
-              (C) <a href="https://kiridevs.de">kiriDevs</a> and{" "}
-              <a href="https://kiridevs.de/vplanweb/contributors">contributors</a> 2022.
+              <Trans ns="HomeScreen" i18nKey="footer.copyright" values={{ maintainer: "kiriDevs", year: 2022 }}>
+                <a href="https://kiriDevs.de">kiriDevs</a>
+                <a href="https://kiridevs.de/vplanweb/contributors">contributors</a>
+              </Trans>
               <br />
-              Developed open-source <a href="https://kiridevs.de/vplanweb">on GitHub</a>!
+              <Trans ns="HomeScreen" i18nKey="footer.github">
+                <a href="https://kiridevs.de/vplanweb">on GitHub</a>
+              </Trans>
             </p>
           </Stack>
         </ListGroup.Item>

@@ -11,6 +11,7 @@ import { shared as StorageManager, CURRENT_LOCALSTORAGE_SCHEMA_VERSION } from ".
 
 import "../styles/settings.css";
 import { handleInputChange } from "../util/handleInputChange";
+import { Trans, useTranslation } from "react-i18next";
 
 interface ISettingsScreenProps {
   dismiss: () => void;
@@ -24,9 +25,12 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
     JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]")
   );
 
+  const { t } = useTranslation("SettingsScreen");
+  const { t: tc } = useTranslation("common");
+
   useEffect(() => {
     const oldTitle = document.title;
-    document.title = "VPlan | Settings";
+    document.title = "VPlan | " + t("title");
 
     // Return a clean up function to return the title to the old state
     return () => {
@@ -48,7 +52,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   };
 
   const handleResetSettingsButtonClick = () => {
-    const confirmation = window.confirm("Are you sure you want to remove all settings?");
+    const confirmation = window.confirm(t("reset.confirmation"));
     if (confirmation) {
       StorageManager.initialize();
       updateInputFields();
@@ -73,21 +77,21 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
   return (
     <>
-      <h1 className="vplan-heading">Settings</h1>
+      <h1 className="vplan-heading">{t("title")}</h1>
 
       <Stack className="vplan-menustrip" direction="horizontal">
         <Button onClick={saveSettings} variant="primary">
-          Save
+          {tc("actions.save")}
         </Button>
         <Button onClick={props.dismiss} variant="secondary" className="ms-auto">
-          Cancel
+          {tc("actions.cancel")}
         </Button>
       </Stack>
 
       <ListGroup>
         <ListGroup.Item>
           <Form.Group>
-            <Form.Label>Authorization Token</Form.Label>
+            <Form.Label>{t("authEntry.label")}</Form.Label>
             <Form.Control
               plaintext={false}
               type="password"
@@ -95,13 +99,13 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
               placeholder="TmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA=" // "Never gonna give you up"
               onChange={handleInputChange(setAuthInput)}
             />
-            <Form.Text>The token used to authenticate with the external API.</Form.Text>
+            <Form.Text>{t("authEntry.description")}</Form.Text>
           </Form.Group>
         </ListGroup.Item>
 
         <ListGroup.Item>
           <Form.Group>
-            <Form.Label>Your class</Form.Label>
+            <Form.Label>{t("classEntry.label")}</Form.Label>
             <Form.Control
               plaintext={false}
               type="text"
@@ -113,7 +117,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <p>Your subjects</p>
+          <p>{t("subjectsList.title")}</p>
           <Form
             onSubmit={(e) => {
               // Do absolutely nothing
@@ -145,16 +149,22 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
                   setSubjectsInput(newSubjectsInput);
                 }}
               >
-                <AiOutlinePlus /> Add another subject
+                <AiOutlinePlus /> {t("subjectsList.add")}
               </Button>
 
               <Alert variant="secondary">
-                <strong>Note:</strong> Make sure to enter your subjects with the name that they appear with on the
-                substitution plans of the school. In some cases, this representation might differ from what's listed on
-                the timetable or the course choice lists.
+                <strong>{t("subjectsList.note.main.title") + ":"}</strong> {t("subjectsList.note.main.text")}
                 <br />
                 <br />
-                <strong>Example:</strong> <code>SW/WI</code> instead of <code>SW</code>
+                <strong>{t("subjectsList.note.example.title") + ":"}</strong>{" "}
+                <Trans
+                  ns="SettingsScreen"
+                  i18nKey="subjectsList.note.example.text"
+                  values={{ right: "SW/WI", wrong: "SW" }}
+                >
+                  <code>SW/WI</code>
+                  <code>SW</code>
+                </Trans>
               </Alert>
             </Stack>
           </Form>
@@ -163,7 +173,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
 
       <ButtonGroup id="settingsResetButtonContainer">
         <Button id="settingsResetButton" onClick={handleResetSettingsButtonClick} variant="danger">
-          <AiOutlineExclamation /> Reset Settings
+          <AiOutlineExclamation /> {t("reset.buttonLabel")}
         </Button>
       </ButtonGroup>
     </>

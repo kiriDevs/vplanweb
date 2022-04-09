@@ -5,7 +5,7 @@
   },
   "authEntry": {
     "label": "Berechtigungstoken",
-    "description": "Wird zur Authentifizierung bei der externen Schnittstelle verwendet"
+    "description": "Wird zur Authentifizierung bei der externen Schnittstelle verwendet."
   },
   "classEntry": {
     "label": "Deine Klasse"
@@ -23,7 +23,9 @@
       },
       "example": {
         "title": "Zum Beispiel",
-        "text": ["<0>{{right}}</0> statt <1>{{wrong}}</1>"]
+        "text": [
+          "<0>{{right}}</0> statt <1>{{wrong}}</1>"
+        ]
       }
     }
   },

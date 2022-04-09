@@ -12,6 +12,7 @@ import { shared as StorageManager, CURRENT_LOCALSTORAGE_SCHEMA_VERSION } from ".
 import "../styles/settings.css";
 import { handleInputChange } from "../util/handleInputChange";
 import { Trans, useTranslation } from "react-i18next";
+import LanguagePicker from "./LanguagePicker";
 
 interface ISettingsScreenProps {
   dismiss: () => void;
@@ -89,6 +90,13 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
       </Stack>
 
       <ListGroup>
+        <ListGroup.Item>
+          <Stack direction="horizontal">
+            <p className="my-auto">{t("language")}</p>
+            <LanguagePicker className="ms-auto" />
+          </Stack>
+        </ListGroup.Item>
+
         <ListGroup.Item>
           <Form.Group>
             <Form.Label>{t("authEntry.label")}</Form.Label>

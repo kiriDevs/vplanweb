@@ -27,5 +27,6 @@
   "reset": {
     "buttonLabel": "Reset Settings",
     "confirmation": "Are you sure you want to remove all settings?"
-  }
+  },
+  "language": "Language"
 }

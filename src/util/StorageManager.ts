@@ -6,7 +6,7 @@ interface IStorageManager {
   migrate: (from: string) => boolean;
 }
 
-export const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.2";
+export const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.3";
 
 export const shared: IStorageManager = {
   startup: () => {

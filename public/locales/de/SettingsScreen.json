@@ -27,5 +27,6 @@
   "reset": {
     "buttonLabel": "Einstellungen zurücksetzen",
     "confirmation": "Bist du dir sicher, dass du alle Einstellungen zurücksetzen möchtest?"
-  }
+  },
+  "language": "Sprache"
 }

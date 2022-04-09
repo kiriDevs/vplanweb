@@ -8,6 +8,11 @@ migrators.set("1.0", () => {
 
 migrators.set("1.1", () => {
   window.localStorage.setItem("filter", JSON.stringify(false));
+  migrators.get("1.2")!();
+});
+
+migrators.set("1.2", () => {
+  window.localStorage.setItem("lang", "en");
 });
 
 export default migrators;

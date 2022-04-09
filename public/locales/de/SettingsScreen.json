@@ -1,0 +1,36 @@
+{
+  "title": "Einstellungen",
+  "languagePicker": {
+    "label": "Sprache"
+  },
+  "authEntry": {
+    "label": "Berechtigungstoken",
+    "description": "Wird zur Authentifizierung bei der externen Schnittstelle verwendet."
+  },
+  "classEntry": {
+    "label": "Deine Klasse"
+  },
+  "subjectsList": {
+    "title": "Deine Fächer",
+    "add": "Weiteres Fach hinzufügen",
+    "note": {
+      "main": {
+        "title": "Hinweis",
+        "text": [
+          "Gebe deine Fächer in der Form ein, in der sie auf dem Vertretungsplan der Schule erscheinen.",
+          "Diese kann unter Umständen vom Stundenplan oder der Kurswahlliste abweichen."
+        ]
+      },
+      "example": {
+        "title": "Zum Beispiel",
+        "text": [
+          "<0>{{right}}</0> statt <1>{{wrong}}</1>"
+        ]
+      }
+    }
+  },
+  "reset": {
+    "buttonLabel": "Einstellungen zurücksetzen",
+    "confirmation": "Bist du dir sicher, dass du alle Einstellungen zurücksetzen möchtest?"
+  }
+}

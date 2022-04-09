@@ -1,0 +1,25 @@
+{
+  "title": "Startseite",
+  "dateEntry": {
+    "label": "Datum",
+    "description": "Das Datum, für das der Vertretungsplan angefragt werden soll"
+  },
+  "filterToggle": {
+    "description": "Nur relevante Einträge anzeigen"
+  },
+  "substitutionTable": {
+    "columnLabels": {
+      "period": "Stunde",
+      "substitute": "Vertretung",
+      "subject": "Fach",
+      "teacher": "Abwesend",
+      "class": "Klasse",
+      "room": "Raum",
+      "note": "Notiz"
+    }
+  },
+  "footer": {
+    "copyright": "(C) <0>{{maintainer}}</0> und <1>Beitragende</1> {{year}}.",
+    "github": "Diese Seite wird open-source auf <0>GitHub</0> entwickelt!"
+  }
+}

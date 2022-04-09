@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "settings": "Einstellungen"
+  },
+  "actions": {
+    "save": "Speichern",
+    "cancel": "Abbrechen"
+  },
+  "loading": "Laden..."
+}

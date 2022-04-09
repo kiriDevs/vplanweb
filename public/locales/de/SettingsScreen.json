@@ -1,5 +1,8 @@
 {
   "title": "Einstellungen",
+  "languagePicker": {
+    "label": "Sprache"
+  },
   "authEntry": {
     "label": "Berechtigungstoken",
     "description": "Wird zur Authentifizierung bei der externen Schnittstelle verwendet"
@@ -27,6 +30,5 @@
   "reset": {
     "buttonLabel": "Einstellungen zurücksetzen",
     "confirmation": "Bist du dir sicher, dass du alle Einstellungen zurücksetzen möchtest?"
-  },
-  "language": "Sprache"
+  }
 }

@@ -92,7 +92,7 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
       <ListGroup>
         <ListGroup.Item>
           <Stack direction="horizontal">
-            <p className="my-auto">{t("language")}</p>
+            <p className="my-auto">{t("languagePicker.label")}</p>
             <LanguagePicker className="ms-auto" />
           </Stack>
         </ListGroup.Item>

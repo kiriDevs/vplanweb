@@ -1,0 +1,25 @@
+{
+  "title": "Home",
+  "dateEntry": {
+    "label": "Date",
+    "description": "The date to request the VPlan for"
+  },
+  "filterToggle": {
+    "description": "Only display relevant entries"
+  },
+  "substitutionTable": {
+    "columnLabels": {
+      "period": "Period",
+      "substitute": "Substitute",
+      "subject": "Subject",
+      "teacher": "Teacher",
+      "class": "Class",
+      "room": "Room",
+      "note": "Note"
+    }
+  },
+  "footer": {
+    "copyright": "(C) <0>{{maintainer}}</0> and <1>contributors</1> {{year}}.",
+    "github": "Developed open-source on <0>GitHub</0>!"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Settings",
+  "languagePicker": {
+    "label": "Language"
+  },
+  "authEntry": {
+    "label": "Authorization Token",
+    "description": "The token used to authenticate with the external API."
+  },
+  "classEntry": {
+    "label": "Your class"
+  },
+  "subjectsList": {
+    "title": "Your subjects",
+    "add": "Add another subject",
+    "note": {
+      "main": {
+        "title": "Note",
+        "text": [
+          "Make sure to enter your subjects with the name that they appear with on the substitution plan of the school.",
+          "In some cases, this representation might differ from what's listed on the timetable or the course choice lists."
+        ]
+      },
+      "example": {
+        "title": "Example",
+        "text": ["<0>{{right}}</0> instead of <1>{{wrong}}</1>"]
+      }
+    }
+  },
+  "reset": {
+    "buttonLabel": "Reset Settings",
+    "confirmation": "Are you sure you want to remove all settings?"
+  }
+}

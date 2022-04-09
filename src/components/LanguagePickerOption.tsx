@@ -13,6 +13,7 @@ const LanguagePickerOption = (props: ILanguagePickerOptionProps) => {
     <DropdownItem
       onClick={() => {
         i18n.changeLanguage(props.lang);
+        window.localStorage.setItem("lang", props.lang);
       }}
     >
       {supportedLanguages.get(props.lang)}

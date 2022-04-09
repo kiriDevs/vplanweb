@@ -10,7 +10,11 @@ interface ILanguagePickerProps {
 const LanguagePicker = (props: ILanguagePickerProps) => {
   const { i18n } = useTranslation();
   return (
-    <DropdownButton title={supportedLanguages.get(i18n.language) + " "} variant="secondary" className={props.className}>
+    <DropdownButton
+      title={(supportedLanguages.get(i18n.language) || "<invalid value>") + " "}
+      variant="secondary"
+      className={props.className}
+    >
       {Array.from(supportedLanguages.keys()).map((langKey) => (
         <LanguagePickerOption lang={langKey} key={"ss-langPick-" + langKey} />
       ))}

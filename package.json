@@ -21,9 +21,9 @@
   "scripts": {
     "devstart": "react-scripts start",
     "build": "react-scripts build",
-    "prettier:write": "prettier --write src/ public/",
-    "prettier:check": "prettier --check src/ public/",
-    "prettier:ci": "npx prettier --check src/ public/",
+    "prettier:write": "prettier --write src/ public/ --ignore-path .prettierignore",
+    "prettier:check": "prettier --check src/ public/ --ignore-path .prettierignore",
+    "prettier:ci": "npx prettier --check src/ public/ --ignore-path .prettierignore",
     "prepare": "husky install"
   },
   "eslintConfig": {

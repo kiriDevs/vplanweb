@@ -8,7 +8,7 @@ i18next
   .use(HttpApi)
   .init({
     supportedLngs: ["en", "de"],
-    lng: "en",
+    lng: window.localStorage.getItem("lang") || "en",
     fallbackLng: "en",
     ns: ["common", "HomeScreen", "SettingsScreen"],
     defaultNS: "common",

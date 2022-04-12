@@ -16,6 +16,8 @@ import RequestFeedback from "../types/RequestFeedback";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import DateFormatter from "../util/DateFormatter";
 import { Trans, useTranslation } from "react-i18next";
+import DatePicker from "./DatePicker";
+import { ButtonGroup } from "react-bootstrap";
 
 interface IHomeScreenProps {
   showSettings: () => void;
@@ -94,21 +96,24 @@ const HomeScreen = (props: IHomeScreenProps) => {
               <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
                 <InputGroup>
-                  <Form.Control
-                    type="text"
-                    placeholder={DateFormatter.apiDateString(new Date())}
-                    onChange={handleInputChange(setDate)}
-                    value={date}
-                  />
-                  {loading ? (
-                    <InputGroup.Text className="bg-secondary text-white">
-                      <Spinner animation="border" size="sm" />
-                    </InputGroup.Text>
-                  ) : (
-                    <InputGroup.Text onClick={makeRequest} className="bg-primary text-white">
-                      <IoSend />
-                    </InputGroup.Text>
-                  )}
+                  <ButtonGroup>
+                    <DatePicker
+                      futureRange={3}
+                      select={(newValue) => {
+                        setDate(newValue);
+                      }}
+                    />
+
+                    {loading ? (
+                      <Button disabled={true}>
+                        <Spinner animation="border" size="sm" />
+                      </Button>
+                    ) : (
+                      <Button disabled={false} onClick={makeRequest}>
+                        <IoSend />
+                      </Button>
+                    )}
+                  </ButtonGroup>
                 </InputGroup>
 
                 <Button

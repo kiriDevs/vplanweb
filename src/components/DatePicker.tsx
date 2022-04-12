@@ -23,7 +23,7 @@ const DatePicker = (props: IDatePickerProps) => {
   }, [props.futureRange]);
 
   return (
-    <DropdownButton title={selection + " "} variant="secondary">
+    <DropdownButton title={selection + " "} variant="blank">
       {options.map((option: string) => (
         <DropdownItem
           key={`#-hs-datedd/o-${option}`}

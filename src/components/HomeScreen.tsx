@@ -95,24 +95,22 @@ const HomeScreen = (props: IHomeScreenProps) => {
             <Form.Group>
               <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
-                <Stack direction="horizontal" gap={1} style={{ border: "solid 1px black", borderRadius: "0.25rem" }}>
-                  <DatePicker
-                    futureRange={3}
-                    select={(newValue) => {
-                      setDate(newValue);
-                    }}
-                  />
+                <DatePicker
+                  futureRange={3}
+                  select={(newValue) => {
+                    setDate(newValue);
+                  }}
+                />
 
-                  {loading ? (
-                    <Button disabled={true}>
-                      <Spinner animation="border" size="sm" />
-                    </Button>
-                  ) : (
-                    <Button disabled={false} onClick={makeRequest}>
-                      <IoSend />
-                    </Button>
-                  )}
-                </Stack>
+                {loading ? (
+                  <Button disabled={true}>
+                    <Spinner animation="border" size="sm" />
+                  </Button>
+                ) : (
+                  <Button disabled={false} onClick={makeRequest}>
+                    <IoSend />
+                  </Button>
+                )}
 
                 <Button
                   onClick={() => {

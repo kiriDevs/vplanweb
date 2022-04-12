@@ -8,7 +8,7 @@ import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIError";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
-import { handleCheckboxChange, handleInputChange } from "../util/handleInputChange";
+import { handleCheckboxChange } from "../util/handleInputChange";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";

@@ -20,7 +20,7 @@ const DatePicker = (props: IDatePickerProps) => {
       optionDates.push(date);
     }
     setOptions(optionDates.map((date: Date) => DateFormatter.apiDateString(date)));
-  }, []);
+  }, [props.futureRange]);
 
   return (
     <DropdownButton title={selection + " "} variant="secondary">

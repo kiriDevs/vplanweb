@@ -94,7 +94,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
               <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
                 <DatePicker
-                  futureRange={3}
+                  futureRange={2}
                   select={(newValue) => {
                     setDate(newValue);
                   }}

@@ -7,6 +7,7 @@ type SanitizedDate = {
   day: string;
   month: string;
   shortYear: string;
+  weekDay: number;
 };
 
 export default SanitizedDate;

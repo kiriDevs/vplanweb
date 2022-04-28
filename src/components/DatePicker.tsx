@@ -14,19 +14,19 @@ const DatePicker = (props: IDatePickerProps) => {
   const [selection, select] = useState(options[0]);
 
   useEffect(() => {
-    let options = [];
+    let genOptions = [];
     let itDate = new Date();
 
-    while (options.length < props.maxDays) {
+    while (genOptions.length < props.maxDays) {
       console.log(itDate);
       if (!isWeekend(itDate)) {
-        options.push(new Date(itDate));
+        genOptions.push(new Date(itDate));
       }
 
       itDate.setDate(itDate.getDate() + 1);
     }
 
-    setOptions(options);
+    setOptions(genOptions);
   }, [props.maxDays]);
 
   return (

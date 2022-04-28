@@ -26,7 +26,7 @@ interface IHomeScreenProps {
 const HomeScreen = (props: IHomeScreenProps) => {
   const [loading, setLoading] = useState(false);
 
-  const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
+  const [date, setDate] = useState(new Date());
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
 
@@ -52,7 +52,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
     setLoading(true);
     axios
       .get("https://api.chuangsheep.com/vplan", {
-        params: { date: date },
+        params: { date: DateFormatter.apiDateString(date) },
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("auth.token")}`
         }
@@ -94,10 +94,10 @@ const HomeScreen = (props: IHomeScreenProps) => {
               <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
                 <DatePicker
-                  futureRange={2}
                   select={(newValue) => {
                     setDate(newValue);
                   }}
+                  maxDays={3}
                 />
 
                 {loading ? (

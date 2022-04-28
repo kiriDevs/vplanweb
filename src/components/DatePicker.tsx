@@ -26,7 +26,7 @@ const DatePicker = (props: IDatePickerProps) => {
     }
 
     setOptions(genOptions);
-    select(options[0]);
+    select(genOptions[0]);
   }, [props.maxDays]);
 
   return (

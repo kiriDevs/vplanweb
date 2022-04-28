@@ -18,7 +18,6 @@ const DatePicker = (props: IDatePickerProps) => {
     let itDate = new Date();
 
     while (genOptions.length < props.maxDays) {
-      console.log(itDate);
       if (!isWeekend(itDate)) {
         genOptions.push(new Date(itDate));
       }

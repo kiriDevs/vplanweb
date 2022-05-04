@@ -1,14 +1,13 @@
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
 import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIError";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
-import { handleCheckboxChange, handleInputChange } from "../util/handleInputChange";
+import { handleCheckboxChange } from "../util/handleInputChange";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";
@@ -16,6 +15,7 @@ import RequestFeedback from "../types/RequestFeedback";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import DateFormatter from "../util/DateFormatter";
 import { Trans, useTranslation } from "react-i18next";
+import DatePicker from "./DatePicker";
 
 interface IHomeScreenProps {
   showSettings: () => void;
@@ -26,7 +26,7 @@ interface IHomeScreenProps {
 const HomeScreen = (props: IHomeScreenProps) => {
   const [loading, setLoading] = useState(false);
 
-  const [date, setDate] = useState(DateFormatter.apiDateString(new Date()));
+  const [date, setDate] = useState(new Date());
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
 
@@ -52,7 +52,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
     setLoading(true);
     axios
       .get("https://api.chuangsheep.com/vplan", {
-        params: { date: date },
+        params: { date: DateFormatter.apiDateString(date) },
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("auth.token")}`
         }
@@ -93,29 +93,29 @@ const HomeScreen = (props: IHomeScreenProps) => {
             <Form.Group>
               <Form.Label>{t("dateEntry.label")}</Form.Label>
               <Stack direction="horizontal" gap={3}>
-                <InputGroup>
-                  <Form.Control
-                    type="text"
-                    placeholder={DateFormatter.apiDateString(new Date())}
-                    onChange={handleInputChange(setDate)}
-                    value={date}
-                  />
-                  {loading ? (
-                    <InputGroup.Text className="bg-secondary text-white">
-                      <Spinner animation="border" size="sm" />
-                    </InputGroup.Text>
-                  ) : (
-                    <InputGroup.Text onClick={makeRequest} className="bg-primary text-white">
-                      <IoSend />
-                    </InputGroup.Text>
-                  )}
-                </InputGroup>
+                <DatePicker
+                  select={(newValue) => {
+                    setDate(newValue);
+                  }}
+                  maxDays={3}
+                />
+
+                {loading ? (
+                  <Button disabled={true}>
+                    <Spinner animation="border" size="sm" />
+                  </Button>
+                ) : (
+                  <Button disabled={false} onClick={makeRequest}>
+                    <IoSend />
+                  </Button>
+                )}
 
                 <Button
                   onClick={() => {
                     props.showSettings();
                   }}
                   variant="secondary"
+                  className="ms-auto"
                 >
                   {tc("navigation.settings")}
                 </Button>

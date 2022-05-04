@@ -12,7 +12,9 @@ const DateFormatter: IDateFormatter = {
 
       rawDay: date.getDate(),
       rawMonth: date.getMonth() + 1,
-      rawYear: date.getFullYear()
+      rawYear: date.getFullYear(),
+
+      weekDay: date.getDay() === 0 ? 6 : date.getDay() - 1
     } as SanitizedDate;
 
     ret.day = ret.rawDay < 10 ? `0${ret.rawDay}` : ret.rawDay.toString();

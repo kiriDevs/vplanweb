@@ -125,7 +125,9 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <p>{t("subjectsList.title")}</p>
+          <p>
+            {t("subjectsList.title")} ({subjectsInput.length})
+          </p>
           <Form
             onSubmit={(e) => {
               // Do absolutely nothing

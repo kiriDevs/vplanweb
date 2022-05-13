@@ -76,7 +76,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
     } else {
       document.title = "VPlan | " + t("title");
     }
-  }, [loading, tc]);
+  }, [loading, tc, t]);
 
   const makeRequest = () => {
     if (loading) {

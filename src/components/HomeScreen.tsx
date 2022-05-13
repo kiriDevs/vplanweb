@@ -53,6 +53,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
   useEffect(() => {
     dateOptions.forEach((option: Date) => {
       const dateString = DateFormatter.apiDateString(option);
+      console.log(dateString);
 
       rest
         .fetchPlan(option)
@@ -68,7 +69,8 @@ const HomeScreen = (props: IHomeScreenProps) => {
           }
         });
     });
-  }, [dateOptions, rest]);
+  }, [dateOptions, rest]); // eslint-disable-line react-hooks/exhaustive-deps
+  // ^^^ Ignored dependency warning for selectString, since we do not want to re-fetch whenever selection changes
 
   useEffect(() => {
     if (loading) {

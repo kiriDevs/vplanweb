@@ -28,8 +28,7 @@ interface IHomeScreenProps {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const [loading, setLoading] = useState(false);
-  const [renderedSubstitutions, renderSubstitutions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [dateOptions, setDateOptions] = useState([] as Date[]);
   const [data, setData] = useState({} as { [key: string]: Substitution[] | APIError });
@@ -48,10 +47,6 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const selectString = DateFormatter.apiDateString(selection);
 
   useEffect(() => {
-    document.title = "VPlan | " + t("title");
-  });
-
-  useEffect(() => {
     setDateOptions(getNextSchooldays(3));
   }, []);
 
@@ -66,6 +61,11 @@ const HomeScreen = (props: IHomeScreenProps) => {
         })
         .catch((err: APIError) => {
           setData((old) => ({ ...old, [dateString]: err }));
+        })
+        .then(() => {
+          if (dateString === selectString) {
+            setLoading(false);
+          }
         });
     });
   }, [dateOptions, rest]);
@@ -73,6 +73,8 @@ const HomeScreen = (props: IHomeScreenProps) => {
   useEffect(() => {
     if (loading) {
       document.title = "VPlan | " + tc("loading");
+    } else {
+      document.title = "VPlan | " + t("title");
     }
   }, [loading, tc]);
 
@@ -81,13 +83,13 @@ const HomeScreen = (props: IHomeScreenProps) => {
       return;
     }
 
-    setRequestFeedback({ type: "none" });
     setLoading(true);
+    setRequestFeedback({ type: "none" });
 
     rest
       .fetchPlan(selection)
       .then((entries: Substitution[]) => {
-        props.renderSubstitutions(entries);
+        setData((old) => ({ ...old, [selectString]: entries }));
         setRequestFeedback({ type: "success", entryCount: entries.length });
       })
       .catch((err: APIError) => {
@@ -139,6 +141,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
               <Stack direction="horizontal" gap={3}>
                 <DatePicker
                   select={(newValue) => {
+                    setRequestFeedback({ type: "none" });
                     select(newValue);
                   }}
                   maxDays={3}

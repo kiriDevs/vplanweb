@@ -16,7 +16,7 @@ import DatePicker from "./DatePicker";
 import { getNextSchooldays } from "../util/dateUtil";
 import DateFormatter from "../util/DateFormatter";
 import RESTContext from "../services/rest/RESTContext";
-import { Alert } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 
 import { Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { FilterContextProvider } from "../context/FilterContext";

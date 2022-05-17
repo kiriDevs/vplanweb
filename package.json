@@ -17,7 +17,7 @@
     "react-icons": "^4.3.1"
   },
   "scripts": {
-    "devstart": "vite",
+    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prettier:write": "prettier --write src/ public/ --ignore-path .prettierignore",

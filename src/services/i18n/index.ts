@@ -13,6 +13,7 @@ i18next
     fallbackLng: "en",
     ns: ["common", "HomeScreen", "SettingsScreen"],
     defaultNS: "common",
+    fallbackNS: "common",
     keySeparator: ".",
     interpolation: {
       escapeValue: false

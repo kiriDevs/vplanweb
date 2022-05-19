@@ -21,5 +21,8 @@
   "footer": {
     "copyright": "(C) <0>{{maintainer}}</0> and <1>contributors</1> {{year}}.",
     "github": "Developed open-source on <0>GitHub</0>!"
+  },
+  "requestFeedback": {
+    "success": "Successfully fetched <0>{{amount}}</0> entries."
   }
 }

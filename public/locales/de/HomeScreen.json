@@ -21,5 +21,8 @@
   "footer": {
     "copyright": "(C) <0>{{maintainer}}</0> und <1>Beitragende</1> {{year}}.",
     "github": "Diese Seite wird open-source auf <0>GitHub</0> entwickelt!"
+  },
+  "requestFeedback": {
+    "success": "<0>{{amount}}</0> Einträge empfangen."
   }
 }

@@ -16,12 +16,11 @@ import { Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 
 interface IHomeScreenProps {
   showSettings: () => void;
-  renderedSubstitutions: Substitution[];
-  renderSubstitutions: Dispatch<SetStateAction<Substitution[]>>;
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
   const [loading, setLoading] = useState(false);
+  const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   const [date, setDate] = useState(new Date());
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
@@ -59,7 +58,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
           const substitution = makeSubstitutionFromAPI(entry);
           return substitution;
         });
-        props.renderSubstitutions(substitutions);
+        renderSubstitutions(substitutions);
         setLoading(false);
         setRequestFeedback({ type: "success", entryCount: substitutions.length });
         document.title = "VPlan | " + res.data.date;
@@ -136,7 +135,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <SubstitutionTable substitutions={props.renderedSubstitutions} relevantOnly={filteringRelevant} />
+          <SubstitutionTable substitutions={renderedSubstitutions} relevantOnly={filteringRelevant} />
         </ListGroup.Item>
 
         <ListGroup.Item>

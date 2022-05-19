@@ -10,7 +10,6 @@ import "../styles/general.css";
 
 const App = () => {
   const [showingSettings, showSettings] = useState(false);
-  const [renderedSubstitutions, renderSubstitutions] = useState([]);
 
   useEffect(() => {
     StorageManager.startup();
@@ -27,8 +26,6 @@ const App = () => {
       showSettings={() => {
         showSettings(true);
       }}
-      renderedSubstitutions={renderedSubstitutions}
-      renderSubstitutions={renderSubstitutions as Dispatch<SetStateAction<Substitution[]>>}
     />
   );
 };

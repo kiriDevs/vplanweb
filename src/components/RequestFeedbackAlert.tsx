@@ -1,4 +1,5 @@
 import Alert from "react-bootstrap/Alert";
+import { Trans, useTranslation } from "react-i18next";
 import RequestFeedback from "../types/RequestFeedback";
 
 interface IRequestFeedbackAlertProps {
@@ -11,6 +12,8 @@ const RequestFeedbackAlert = (props: IRequestFeedbackAlertProps) => {
     return <></>;
   }
 
+  const { t } = useTranslation("HomeScreen");
+
   return (
     <>
       <br />
@@ -20,9 +23,9 @@ const RequestFeedbackAlert = (props: IRequestFeedbackAlertProps) => {
         onClose={props.dismiss}
       >
         {props.feedback.type === "success" ? (
-          <span>
-            Successfully fetched <strong>{props.feedback.entryCount}</strong> entries.
-          </span>
+          <Trans ns="HomeScreen" i18nKey="requestFeedback.success" values={{ amount: props.feedback.entryCount }}>
+            <strong>{props.feedback.entryCount}</strong>
+          </Trans>
         ) : (
           <>
             <Alert.Heading>{props.feedback.error.message}</Alert.Heading>

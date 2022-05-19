@@ -7,8 +7,8 @@ ports:
 tasks:
   - name: Set up workspace
     init: npm install
-  - name: React DevServer
-    command: npm run devstart
+  - name: Vite DevServer
+    command: npm run dev
 vscode:
   extensions:
     - esbenp.prettier-vscode

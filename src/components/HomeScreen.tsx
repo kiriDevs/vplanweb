@@ -1,9 +1,4 @@
 import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import ListGroup from "react-bootstrap/ListGroup";
-import Spinner from "react-bootstrap/Spinner";
-import Stack from "react-bootstrap/Stack";
 import { makeApiErrorFromAxiosError } from "../types/api/APIError";
 import APISubstitution from "../types/api/APISubstitution";
 import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
@@ -16,6 +11,8 @@ import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import DateFormatter from "../util/DateFormatter";
 import { Trans, useTranslation } from "react-i18next";
 import DatePicker from "./DatePicker";
+
+import { Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 
 interface IHomeScreenProps {
   showSettings: () => void;

@@ -14,7 +14,8 @@
     "formulahendry.auto-rename-tag"
   ],
 
-  "postCreateCommand": "npm install --prefix /workspaces/vplanweb",
+  // postCreateCommand runs in the project root
+  "postCreateCommand": "./.devcontainer/pcc.sh",
 
   "remoteUser": "vscode",
   "features": {

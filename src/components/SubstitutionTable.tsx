@@ -32,7 +32,7 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => {
         return props.relevantOnly ? false : "normal";
       case "partial":
         if (!props.relevantOnly) {
-          return "partial";
+          return filterSubjects.length > 0 ? "partial" : "full";
         } else {
           return props.ignoreSubjects && "normal";
         }

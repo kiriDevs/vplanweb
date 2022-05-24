@@ -136,7 +136,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
               checked={filteringRelevant}
               onChange={handleCheckboxChange(handleFilterSwitch)}
             />
-            {filteringRelevant && (
+            {filteringRelevant && JSON.parse(window.localStorage.getItem("filter.subjects")!).length > 0 && (
               <Form.Switch
                 label={t("ignoreSubjectsToggle.description")}
                 checked={ignoringSubjects}

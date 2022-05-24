@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useTranslation } from "react-i18next";
 import { Substitution } from "../types/Substitution";
@@ -6,18 +7,44 @@ import SubstitutionTableRow from "./SubstitutionTableRow";
 interface ISubstitutionTableProps {
   substitutions: Substitution[];
   relevantOnly: boolean;
+  ignoreSubjects: boolean;
 }
 
 const SubstitutionTable = (props: ISubstitutionTableProps) => {
+  const [filterClass] = useState(window.localStorage.getItem("filter.class"));
+  const [filterSubjects] = useState(JSON.parse(window.localStorage.getItem("filter.subjects")!));
+
   const { t } = useTranslation("HomeScreen", { keyPrefix: "substitutionTable" });
 
   const isRelevant = (substitution: Substitution) => {
-    const filterCourses = JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]");
-    const filterClass = window.localStorage.getItem("filter.class");
-    return (
-      (substitution.class === filterClass && filterCourses.includes(substitution.subject)) ||
-      (filterCourses.length === 0 && substitution.class === filterClass)
-    );
+    if (substitution.class === filterClass) {
+      return filterSubjects.includes(substitution.subject) ? true : "partial";
+    } else {
+      return false;
+    }
+  };
+
+  const getRenderStyle = (substitution: Substitution) => {
+    const relevancy = isRelevant(substitution); // true, "partial", false
+
+    switch (relevancy) {
+      case false:
+        return props.relevantOnly ? false : "normal";
+      case "partial":
+        if (!props.relevantOnly) {
+          return "partial";
+        } else {
+          return props.ignoreSubjects && "normal";
+        }
+      case true:
+        if (props.relevantOnly) {
+          return props.ignoreSubjects ? "full" : "normal";
+        } else {
+          return "full";
+        }
+    }
+
+    // => false, "normal", "partial", "full"
   };
 
   return (
@@ -35,12 +62,12 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => {
       </thead>
       <tbody>
         {props.substitutions
-          .filter((substitution: Substitution) => !props.relevantOnly || isRelevant(substitution))
+          .filter((substitution: Substitution) => getRenderStyle(substitution))
           .map((substitution: Substitution) => (
             <SubstitutionTableRow
               key={`#-st-str-${substitution.period}${substitution.absent}`}
               substitution={substitution}
-              highlighted={!props.relevantOnly && isRelevant(substitution)}
+              style={getRenderStyle(substitution)}
             />
           ))}
       </tbody>

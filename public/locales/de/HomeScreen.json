@@ -24,5 +24,8 @@
   },
   "requestFeedback": {
     "success": "<0>{{amount}}</0> Einträge empfangen."
+  },
+  "ignoreSubjectsToggle": {
+    "description": "Fach-Filter ignorieren"
   }
 }

@@ -24,5 +24,8 @@
   },
   "requestFeedback": {
     "success": "Successfully fetched <0>{{amount}}</0> entries."
+  },
+  "ignoreSubjectsToggle": {
+    "description": "Ignore subject filter"
   }
 }

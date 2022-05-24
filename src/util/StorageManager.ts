@@ -6,7 +6,7 @@ interface IStorageManager {
   migrate: (from: string) => boolean;
 }
 
-export const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.3";
+export const CURRENT_LOCALSTORAGE_SCHEMA_VERSION = "1.4";
 
 export const shared: IStorageManager = {
   startup: () => {
@@ -36,6 +36,7 @@ export const shared: IStorageManager = {
     window.localStorage.setItem("filter.class", "");
     window.localStorage.setItem("filter.subjects", JSON.stringify([]));
     window.localStorage.setItem("filter", JSON.stringify(false));
+    window.localStorage.setItem("filter.ignoreSubjects", JSON.stringify(false));
     window.localStorage.setItem("lang", "en");
     window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
   },

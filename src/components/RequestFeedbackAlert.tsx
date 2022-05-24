@@ -24,7 +24,7 @@ const RequestFeedbackAlert = (props: IRequestFeedbackAlertProps) => {
       >
         {props.feedback.type === "success" ? (
           <Trans ns="HomeScreen" i18nKey="requestFeedback.success" values={{ amount: props.feedback.entryCount }}>
-            <strong>{props.feedback.entryCount}</strong>
+            <strong>amount</strong>
           </Trans>
         ) : (
           <>

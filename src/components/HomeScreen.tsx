@@ -25,6 +25,9 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const [date, setDate] = useState(new Date());
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
+  const [ignoringSubjects, ignoreSubjects] = useState(
+    JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
+  );
 
   const { t } = useTranslation("HomeScreen");
   const { t: tc } = useTranslation("common");
@@ -70,8 +73,17 @@ const HomeScreen = (props: IHomeScreenProps) => {
   };
 
   const handleFilterSwitch = (newValue: boolean) => {
+    if (newValue === false) {
+      ignoreSubjects(false);
+    }
+
     filterRelevant(newValue);
     window.localStorage.setItem("filter", JSON.stringify(newValue));
+  };
+
+  const handleIgnoreSubjectsSwitch = (newValue: boolean) => {
+    ignoreSubjects(newValue);
+    window.localStorage.setItem("filter.ignoreSubjects", JSON.stringify(newValue));
   };
 
   return (
@@ -124,6 +136,13 @@ const HomeScreen = (props: IHomeScreenProps) => {
               checked={filteringRelevant}
               onChange={handleCheckboxChange(handleFilterSwitch)}
             />
+            {filteringRelevant && (
+              <Form.Switch
+                label={t("ignoreSubjectsToggle.description")}
+                checked={ignoringSubjects}
+                onChange={handleCheckboxChange(handleIgnoreSubjectsSwitch)}
+              />
+            )}
           </Form>
 
           <RequestFeedbackAlert
@@ -135,7 +154,11 @@ const HomeScreen = (props: IHomeScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <SubstitutionTable substitutions={renderedSubstitutions} relevantOnly={filteringRelevant} />
+          <SubstitutionTable
+            substitutions={renderedSubstitutions}
+            relevantOnly={filteringRelevant}
+            ignoreSubjects={ignoringSubjects}
+          />
         </ListGroup.Item>
 
         <ListGroup.Item>

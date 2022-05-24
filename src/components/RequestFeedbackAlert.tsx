@@ -8,11 +8,11 @@ interface IRequestFeedbackAlertProps {
 }
 
 const RequestFeedbackAlert = (props: IRequestFeedbackAlertProps) => {
+  const { t } = useTranslation("HomeScreen");
+
   if (props.feedback.type === "none") {
     return <></>;
   }
-
-  const { t } = useTranslation("HomeScreen");
 
   return (
     <>

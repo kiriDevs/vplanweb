@@ -15,4 +15,8 @@ migrators.set("1.2", () => {
   window.localStorage.setItem("lang", "en");
 });
 
+migrators.set("1.3", () => {
+  window.localStorage.setItem("filter.ignoreSubjects", JSON.stringify(false));
+});
+
 export default migrators;

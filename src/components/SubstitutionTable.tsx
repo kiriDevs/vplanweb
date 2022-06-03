@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import { useTranslation } from "react-i18next";
 import { Substitution } from "../types/Substitution";
 import SubstitutionTableRow from "./SubstitutionTableRow";
+import getRenderStyle, { IRelevancyFilterOptions } from "../util/relevancyFilter";
 
 interface ISubstitutionTableProps {
   substitutions: Substitution[];
@@ -11,44 +12,18 @@ interface ISubstitutionTableProps {
 }
 
 const SubstitutionTable = (props: ISubstitutionTableProps) => {
-  const [filterClass] = useState(window.localStorage.getItem("filter.class"));
+  const [filterClass] = useState(window.localStorage.getItem("filter.class")!);
   const [filterSubjects] = useState(JSON.parse(window.localStorage.getItem("filter.subjects")!));
 
   const { t } = useTranslation("HomeScreen", { keyPrefix: "substitutionTable" });
 
-  const isRelevant = (substitution: Substitution) => {
-    if (substitution.class === filterClass) {
-      return filterSubjects.includes(substitution.subject) ? true : "partial";
-    } else {
-      return false;
+  const filterOptions = {
+    class: filterClass,
+    subjects: filterSubjects,
+    filterMode: {
+      filtering: props.relevantOnly,
+      ignoringSubjects: props.ignoreSubjects
     }
-  };
-
-  const getRenderStyle = (substitution: Substitution) => {
-    const relevancy = isRelevant(substitution); // true, "partial", false
-
-    switch (relevancy) {
-      case false:
-        return props.relevantOnly ? false : "normal";
-      case "partial":
-        if (!props.relevantOnly) {
-          if (filterSubjects.length > 0 || props.ignoreSubjects) {
-            return "partial";
-          } else {
-            return "full";
-          }
-        } else {
-          return (props.ignoreSubjects || filterSubjects.length === 0) && "normal";
-        }
-      case true:
-        if (props.relevantOnly) {
-          return props.ignoreSubjects ? "full" : "normal";
-        } else {
-          return "full";
-        }
-    }
-
-    // => false, "normal", "partial", "full"
   };
 
   return (
@@ -66,14 +41,17 @@ const SubstitutionTable = (props: ISubstitutionTableProps) => {
       </thead>
       <tbody>
         {props.substitutions
-          .filter((substitution: Substitution) => getRenderStyle(substitution))
-          .map((substitution: Substitution) => (
-            <SubstitutionTableRow
-              key={`#-st-str-${substitution.period}${substitution.absent}`}
-              substitution={substitution}
-              style={getRenderStyle(substitution)}
-            />
-          ))}
+          .map((substitution: Substitution) => {
+            const style = getRenderStyle(substitution, filterOptions);
+            return (
+              <SubstitutionTableRow
+                key={`#-st-str-${substitution.period}${substitution.absent}`}
+                substitution={substitution}
+                style={style}
+              />
+            );
+          })
+          .filter((elem: JSX.Element | undefined) => elem && elem.props.style !== false)}
       </tbody>
     </Table>
   );

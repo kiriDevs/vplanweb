@@ -25,7 +25,6 @@ const getRenderStyle = (substitution: Substitution, options: IRelevancyFilterOpt
       return options.filterMode.filtering ? false : "normal";
     case "partial":
       const ignoreSubjects = options.filterMode.ignoringSubjects || options.subjects.length === 0;
-      console.log(options.filterMode.ignoringSubjects, options.subjects.length, ignoreSubjects);
       if (!options.filterMode.filtering) {
         if (!ignoreSubjects) {
           return "partial";

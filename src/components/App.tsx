@@ -4,8 +4,6 @@ import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import { shared as StorageManager } from "../util/StorageManager";
 
-import { Substitution } from "../types/Substitution";
-
 import "../styles/general.css";
 
 const App = () => {

@@ -32,6 +32,19 @@ const HomeScreen = (props: IHomeScreenProps) => {
     JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
   );
 
+  const [usingMobileUi, useMobileUi] = useState(window.innerWidth <= 500);
+  useEffect(() => {
+    const resizeListener = () => {
+      useMobileUi(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, []);
+
   const { t } = useTranslation("HomeScreen");
   const { t: tc } = useTranslation("common");
 
@@ -99,8 +112,6 @@ const HomeScreen = (props: IHomeScreenProps) => {
       ignoringSubjects: ignoringSubjects
     }
   } as IRelevancyFilterOptions;
-
-  const useMobileUi = window.innerWidth <= 500;
 
   return (
     <>
@@ -170,7 +181,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
         <ListGroup.Item>
           <FilterContextProvider value={filterOptions}>
-            {useMobileUi ? (
+            {usingMobileUi ? (
               <SubstitutionList substitutions={renderedSubstitutions} />
             ) : (
               <SubstitutionTable

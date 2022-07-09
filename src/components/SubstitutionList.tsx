@@ -21,7 +21,7 @@ const SubstitutionList = (props: ISubstitutionListProps) => {
     setPeriods(_periods);
   }, [props.substitutions]);
 
-  return (
+  return props.substitutions.length !== 0 ? (
     <Accordion
       defaultActiveKey={periods.map((period) => `#-mobile-accordion-section${period.toString()}}`)}
       alwaysOpen
@@ -29,11 +29,14 @@ const SubstitutionList = (props: ISubstitutionListProps) => {
     >
       {periods.map((period) => (
         <SubstitutionListGroup
+          key={`#-mobile-accordion-section${period.toString()}`}
           period={period}
           substitutions={props.substitutions.filter((substitution: Substitution) => substitution.period === period)}
         />
       ))}
     </Accordion>
+  ) : (
+    <></>
   );
 };
 

@@ -6,5 +6,6 @@
     "save": "Save",
     "cancel": "Cancel"
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "nth-period": "{{n}}. period"
 }

@@ -49,7 +49,10 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
       </AccordionHeader>
       <AccordionBody className="p-0">
         {props.substitutions.map((substitution: Substitution) => (
-          <SubstitutionListCell substitution={substitution} />
+          <SubstitutionListCell
+            substitution={substitution}
+            key={`#-mobile-accordion-section${props.period.toString()}-${substitution.class}|${substitution.subject}`}
+          />
         ))}
       </AccordionBody>
     </AccordionItem>

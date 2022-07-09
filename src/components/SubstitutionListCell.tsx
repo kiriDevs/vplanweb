@@ -1,4 +1,5 @@
 import { ListGroupItem } from "react-bootstrap";
+import { TFunction, Trans, useTranslation } from "react-i18next";
 import { FilterContextConsumer } from "../context/FilterContext";
 import { Substitution } from "../types/Substitution";
 import getRenderStyle from "../util/relevancyFilter";
@@ -7,55 +8,59 @@ interface ISubstitutionListCellProps {
   substitution: Substitution;
 }
 
-const renderSubstitute = (substitution: Substitution) => {
+const renderSubstitute = (substitution: Substitution, t: TFunction) => {
   switch (substitution.substitute) {
     case "EVA":
       return (
-        <>
-          Heute Eigenverantwortliches Arbeiten (<strong>EVA</strong>)
-        </>
+        <Trans t={t} i18nKey="subTexts.eva">
+          <strong>EVA</strong>
+        </Trans>
       );
     case "---":
-      return "Findet heute nicht statt!";
+      return t("subTexts.nosub");
     default:
-      return "Heute bei " + substitution.substitute + " statt bei " + substitution.absent;
+      return t("subTexts.sub", { replace: { substitute: substitution.substitute, absent: substitution.absent } });
   }
 };
 
-const SubstitutionListCell = (props: ISubstitutionListCellProps) => (
-  <FilterContextConsumer>
-    {(filterOptions) => {
-      const renderStyle = getRenderStyle(props.substitution, filterOptions);
-      let styleVariant = "";
-      switch (renderStyle) {
-        case "partial":
-          styleVariant = "secondary";
-          break;
-        case "full":
-          styleVariant = "primary";
-          break;
-      }
+const SubstitutionListCell = (props: ISubstitutionListCellProps) => {
+  const { t } = useTranslation("HomeScreen", { keyPrefix: "mobileui" });
 
-      return (
-        <ListGroupItem variant={styleVariant}>
-          <>
-            <strong>
-              {props.substitution.class}: {props.substitution.subject} ({props.substitution.room})
-            </strong>
-            <br />
-            {renderSubstitute(props.substitution)}
+  return (
+    <FilterContextConsumer>
+      {(filterOptions) => {
+        const renderStyle = getRenderStyle(props.substitution, filterOptions);
+        let styleVariant = "";
+        switch (renderStyle) {
+          case "partial":
+            styleVariant = "secondary";
+            break;
+          case "full":
+            styleVariant = "primary";
+            break;
+        }
 
-            {props.substitution.note !== "" && (
-              <>
-                <br />
-                {props.substitution.note}
-              </>
-            )}
-          </>
-        </ListGroupItem>
-      );
-    }}
-  </FilterContextConsumer>
-);
+        return (
+          <ListGroupItem variant={styleVariant}>
+            <>
+              <strong>
+                {props.substitution.class}: {props.substitution.subject} ({props.substitution.room})
+              </strong>
+              <br />
+              {renderSubstitute(props.substitution, t)}
+
+              {props.substitution.note !== "" && (
+                <>
+                  <br />
+                  {props.substitution.note}
+                </>
+              )}
+            </>
+          </ListGroupItem>
+        );
+      }}
+    </FilterContextConsumer>
+  );
+};
 
 export default SubstitutionListCell;

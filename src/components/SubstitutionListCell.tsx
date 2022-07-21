@@ -29,7 +29,6 @@ const renderSubstitute = (substitution: Substitution, t: TFunction) => {
           <strong>{substitution.absent}</strong>
         </Trans>
       );
-    //t("subTexts.sub", { replace: { substitute: substitution.substitute, absent: substitution.absent } });
   }
 };
 

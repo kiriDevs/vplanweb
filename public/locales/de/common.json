@@ -7,5 +7,6 @@
     "cancel": "Abbrechen"
   },
   "loading": "Laden...",
-  "nth-period": "{{n}}. Stunde"
+  "nth-period": "{{n}}. Stunde",
+  "n-entries": "{{n}} Einträge"
 }

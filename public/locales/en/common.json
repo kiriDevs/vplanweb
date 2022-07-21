@@ -7,5 +7,9 @@
     "cancel": "Cancel"
   },
   "loading": "Loading...",
-  "nth-period": "{{n}}. period"
+  "nth-period": "{{n}}. period",
+  "entries": {
+    "one": "entry",
+    "more": "{{n}} entries"
+  }
 }

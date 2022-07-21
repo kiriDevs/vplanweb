@@ -65,7 +65,13 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
         <Stack direction="horizontal" className="w-100">
           <Stack>
             <strong>{tc("nth-period", { replace: { n: props.period } })}</strong>
-            <span className="text-secondary">{props.substitutions.length} entries</span>
+            {props.substitutions.length === 1 ? (
+              <span className="text-secondary">1 {tc("entries.one")}</span>
+            ) : (
+              <span className="text-secondary">
+                {tc("entries.more", { replace: { n: props.substitutions.length } })}
+              </span>
+            )}
           </Stack>
           <Stack direction="horizontal" className="ms-auto" gap={1} style={{ paddingRight: "0.6em" }}>
             {partialMatchCount > 0 && (

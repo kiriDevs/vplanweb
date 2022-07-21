@@ -63,7 +63,10 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
     <AccordionItem eventKey={`#-mobile-accordion-section${props.period.toString()}`} className="show">
       <AccordionHeader>
         <Stack direction="horizontal" className="w-100">
-          <strong>{tc("nth-period", { replace: { n: props.period } })}</strong>
+          <Stack>
+            <strong>{tc("nth-period", { replace: { n: props.period } })}</strong>
+            <span className="text-secondary">{props.substitutions.length} entries</span>
+          </Stack>
           <Stack direction="horizontal" className="ms-auto" gap={1} style={{ paddingRight: "0.6em" }}>
             {partialMatchCount > 0 && (
               <Badge bg="secondary" pill>

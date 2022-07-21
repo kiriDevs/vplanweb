@@ -33,6 +33,10 @@
       "eva": "Heute eigenverantwortliches Arbeiten (<0>EVA</0>)!",
       "nosub": "Findet heute nicht statt!",
       "sub": "Heute bei {{substitute}} statt bei {{absent}}!"
+    },
+    "invalidEntriesHint": {
+      "nInvalidEntries": "+ {{n}} fehlerhafte Einträge",
+      "tapForMore": "Tippen, um Quelldaten anzuzeigen"
     }
   }
 }

@@ -44,6 +44,7 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
   const [validEntries, setValidEntries] = useState([] as Substitution[]);
   const [invalidEntries, setInvalidEntries] = useState([] as Substitution[]);
 
+  const { t } = useTranslation("HomeScreen", { keyPrefix: "mobileui" });
   const { t: tc } = useTranslation("common");
 
   useEffect(() => {
@@ -99,9 +100,9 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
               alert(JSON.stringify(invalidEntries, undefined, 2));
             }}
           >
-            <strong>+ {invalidEntries.length} invalid entries</strong>
+            <strong>{t("invalidEntriesHint.nInvalidEntries", { replace: { n: invalidEntries.length } })}</strong>
             <br />
-            <span>Tap to show raw data</span>
+            <span>{t("invalidEntriesHint.tapForMore")}</span>
           </ListGroupItem>
         )}
       </AccordionBody>

@@ -19,7 +19,17 @@ const renderSubstitute = (substitution: Substitution, t: TFunction) => {
     case "---":
       return t("subTexts.nosub");
     default:
-      return t("subTexts.sub", { replace: { substitute: substitution.substitute, absent: substitution.absent } });
+      return (
+        <Trans
+          t={t}
+          i18nKey="subTexts.sub"
+          values={{ substitute: substitution.substitute, absent: substitution.absent }}
+        >
+          <strong>{substitution.substitute}</strong>
+          <strong>{substitution.absent}</strong>
+        </Trans>
+      );
+    //t("subTexts.sub", { replace: { substitute: substitution.substitute, absent: substitution.absent } });
   }
 };
 

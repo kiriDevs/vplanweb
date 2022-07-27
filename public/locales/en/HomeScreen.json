@@ -27,5 +27,16 @@
   },
   "ignoreSubjectsToggle": {
     "description": "Ignore subject filter"
+  },
+  "mobileui": {
+    "subTexts": {
+      "eva": "Working independently today (<0>EVA</0>)!",
+      "nosub": "Does not take place today!",
+      "sub": "Today with <0>{{substitute}}</0> instead of <1>{{absent}}</1>!"
+    },
+    "invalidEntriesHint": {
+      "nInvalidEntries": "+ {{n}} invalid entries",
+      "tapForMore": "Tap to show raw data"
+    }
   }
 }

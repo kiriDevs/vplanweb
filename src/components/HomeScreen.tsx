@@ -13,6 +13,9 @@ import { Trans, useTranslation } from "react-i18next";
 import DatePicker from "./DatePicker";
 
 import { Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
+import { FilterContextProvider } from "../context/FilterContext";
+import SubstitutionList from "./SubstitutionList";
+import { IRelevancyFilterOptions } from "../util/relevancyFilter";
 
 interface IHomeScreenProps {
   showSettings: () => void;
@@ -28,6 +31,19 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const [ignoringSubjects, ignoreSubjects] = useState(
     JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
   );
+
+  const [usingMobileUi, useMobileUi] = useState(window.innerWidth <= 500);
+  useEffect(() => {
+    const resizeListener = () => {
+      useMobileUi(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, []);
 
   const { t } = useTranslation("HomeScreen");
   const { t: tc } = useTranslation("common");
@@ -86,10 +102,20 @@ const HomeScreen = (props: IHomeScreenProps) => {
     window.localStorage.setItem("filter.ignoreSubjects", JSON.stringify(newValue));
   };
 
+  const [filterClass] = useState(window.localStorage.getItem("filter.class")!);
+  const [filterSubjects] = useState(JSON.parse(window.localStorage.getItem("filter.subjects")!));
+  const filterOptions = {
+    class: filterClass,
+    subjects: filterSubjects,
+    filterMode: {
+      filtering: filteringRelevant,
+      ignoringSubjects: ignoringSubjects
+    }
+  } as IRelevancyFilterOptions;
+
   return (
     <>
       <h1 className="vplan-heading">VPlan</h1>
-
       <ListGroup>
         <ListGroup.Item>
           <Form
@@ -154,11 +180,17 @@ const HomeScreen = (props: IHomeScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <SubstitutionTable
-            substitutions={renderedSubstitutions}
-            relevantOnly={filteringRelevant}
-            ignoreSubjects={ignoringSubjects}
-          />
+          <FilterContextProvider value={filterOptions}>
+            {usingMobileUi ? (
+              <SubstitutionList substitutions={renderedSubstitutions} />
+            ) : (
+              <SubstitutionTable
+                substitutions={renderedSubstitutions}
+                relevantOnly={filteringRelevant}
+                ignoreSubjects={ignoringSubjects}
+              />
+            )}
+          </FilterContextProvider>
         </ListGroup.Item>
 
         <ListGroup.Item>

@@ -6,5 +6,7 @@
     "save": "Speichern",
     "cancel": "Abbrechen"
   },
-  "loading": "Laden..."
+  "loading": "Laden...",
+  "nth-period": "{{n}}. Stunde",
+  "n-entries": "{{n}} Einträge"
 }

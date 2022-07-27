@@ -27,5 +27,16 @@
   },
   "ignoreSubjectsToggle": {
     "description": "Fach-Filter ignorieren"
+  },
+  "mobileui": {
+    "subTexts": {
+      "eva": "Heute eigenverantwortliches Arbeiten (<0>EVA</0>)!",
+      "nosub": "Findet heute nicht statt!",
+      "sub": "Heute bei <0>{{substitute}}</0> statt bei <1>{{absent}}</1>!"
+    },
+    "invalidEntriesHint": {
+      "nInvalidEntries": "+ {{n}} fehlerhafte Einträge",
+      "tapForMore": "Tippen, um Quelldaten anzuzeigen"
+    }
   }
 }

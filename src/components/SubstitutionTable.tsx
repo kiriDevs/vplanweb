@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import { useTranslation } from "react-i18next";
 import { Substitution } from "../types/Substitution";
 import SubstitutionTableRow from "./SubstitutionTableRow";
-import getRenderStyle, { IRelevancyFilterOptions } from "../util/relevancyFilter";
+import getRenderStyle from "../util/relevancyFilter";
 
 interface ISubstitutionTableProps {
   substitutions: Substitution[];

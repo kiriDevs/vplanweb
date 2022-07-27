@@ -200,6 +200,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
             <SubstitutionTable
               substitutions={data[DateFormatter.apiDateString(selection)] as Substitution[]}
               relevantOnly={filteringRelevant}
+              ignoreSubjects={ignoringSubjects}
             />
           )}
         </ListGroup.Item>

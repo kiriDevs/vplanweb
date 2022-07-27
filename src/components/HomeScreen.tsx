@@ -53,7 +53,6 @@ const HomeScreen = (props: IHomeScreenProps) => {
   useEffect(() => {
     dateOptions.forEach((option: Date) => {
       const dateString = DateFormatter.apiDateString(option);
-      console.log(dateString);
 
       rest
         .fetchPlan(option)

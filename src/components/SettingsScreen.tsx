@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -13,6 +13,7 @@ import "../styles/settings.css";
 import { handleInputChange } from "../util/handleInputChange";
 import { Trans, useTranslation } from "react-i18next";
 import LanguagePicker from "./LanguagePicker";
+import RESTContext from "../services/rest/RESTContext";
 
 interface ISettingsScreenProps {
   dismiss: () => void;
@@ -25,6 +26,8 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   const [subjectsInput, setSubjectsInput] = useState(
     JSON.parse(window.localStorage.getItem("filter.subjects") ?? "[]")
   );
+
+  const rest = useContext(RESTContext);
 
   const { t } = useTranslation("SettingsScreen");
   const { t: tc } = useTranslation("common");
@@ -43,6 +46,8 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
     window.localStorage.setItem("storage.ls.version", CURRENT_LOCALSTORAGE_SCHEMA_VERSION);
 
     window.localStorage.setItem("auth.token", authInput);
+    rest.setToken(authInput);
+
     window.localStorage.setItem("filter.class", classInput);
     window.localStorage.setItem(
       "filter.subjects",

@@ -1,16 +1,17 @@
-import axios from "axios";
-import { makeApiErrorFromAxiosError } from "../types/api/APIError";
-import APISubstitution from "../types/api/APISubstitution";
-import { makeSubstitutionFromAPI, Substitution } from "../types/Substitution";
+import { APIError } from "../types/api/APIError";
+import { Substitution } from "../types/Substitution";
 import { handleCheckboxChange } from "../util/handleInputChange";
 import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";
 import RequestFeedback from "../types/RequestFeedback";
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
-import DateFormatter from "../util/DateFormatter";
+import { useState, Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import DatePicker from "./DatePicker";
+import { getNextSchooldays } from "../util/dateUtil";
+import DateFormatter from "../util/DateFormatter";
+import RESTContext from "../services/rest/RESTContext";
+import Alert from "react-bootstrap/Alert";
 
 import { Button, Form, ListGroup, Spinner, Stack } from "react-bootstrap";
 import { FilterContextProvider } from "../context/FilterContext";
@@ -22,68 +23,75 @@ interface IHomeScreenProps {
 }
 
 const HomeScreen = (props: IHomeScreenProps) => {
-  const [loading, setLoading] = useState(false);
-  const [renderedSubstitutions, renderSubstitutions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [date, setDate] = useState(new Date());
+  const [dateOptions, setDateOptions] = useState([] as Date[]);
+  const [data, setData] = useState({} as { [key: string]: Substitution[] | APIError });
+  const [selection, select] = useState(new Date());
+
   const [requestFeedback, setRequestFeedback] = useState({ type: "none" } as RequestFeedback);
   const [filteringRelevant, filterRelevant] = useState(JSON.parse(window.localStorage.getItem("filter") ?? "false"));
   const [ignoringSubjects, ignoreSubjects] = useState(
     JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
   );
 
-  const [usingMobileUi, useMobileUi] = useState(window.innerWidth <= 500);
-  useEffect(() => {
-    const resizeListener = () => {
-      useMobileUi(window.innerWidth <= 500);
-    };
-
-    window.addEventListener("resize", resizeListener);
-
-    return () => {
-      window.removeEventListener("resize", resizeListener);
-    };
-  }, []);
-
+  const rest = useContext(RESTContext);
   const { t } = useTranslation("HomeScreen");
   const { t: tc } = useTranslation("common");
 
+  const selectString = DateFormatter.apiDateString(selection);
+
   useEffect(() => {
-    document.title = "VPlan | " + t("title");
-  });
+    setDateOptions(getNextSchooldays(3));
+  }, []);
+
+  useEffect(() => {
+    dateOptions.forEach((option: Date) => {
+      const dateString = DateFormatter.apiDateString(option);
+
+      rest
+        .fetchPlan(option)
+        .then((entries: Substitution[]) => {
+          setData((old) => ({ ...old, [dateString]: entries }));
+        })
+        .catch((err: APIError) => {
+          setData((old) => ({ ...old, [dateString]: err }));
+        })
+        .then(() => {
+          if (dateString === selectString) {
+            setLoading(false);
+          }
+        });
+    });
+  }, [dateOptions, rest]); // eslint-disable-line react-hooks/exhaustive-deps
+  // ^^^ Ignored dependency warning for selectString, since we do not want to re-fetch whenever selection changes
 
   useEffect(() => {
     if (loading) {
       document.title = "VPlan | " + tc("loading");
+    } else {
+      document.title = "VPlan | " + t("title");
     }
-  }, [loading, tc]);
+  }, [loading, tc, t]);
 
   const makeRequest = () => {
     if (loading) {
       return;
     }
 
-    setRequestFeedback({ type: "none" });
     setLoading(true);
-    axios
-      .get("https://api.chuangsheep.com/vplan", {
-        params: { date: DateFormatter.apiDateString(date) },
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("auth.token")}`
-        }
+    setRequestFeedback({ type: "none" });
+
+    rest
+      .fetchPlan(selection)
+      .then((entries: Substitution[]) => {
+        setData((old) => ({ ...old, [selectString]: entries }));
+        setRequestFeedback({ type: "success", entryCount: entries.length });
       })
-      .then((res) => {
-        const substitutions = res.data.entries.map((entry: APISubstitution) => {
-          const substitution = makeSubstitutionFromAPI(entry);
-          return substitution;
-        });
-        renderSubstitutions(substitutions);
-        setLoading(false);
-        setRequestFeedback({ type: "success", entryCount: substitutions.length });
-        document.title = "VPlan | " + res.data.date;
+      .catch((err: APIError) => {
+        setRequestFeedback({ type: "error", error: err });
       })
-      .catch((err) => {
-        setRequestFeedback({ type: "error", error: makeApiErrorFromAxiosError(err) });
+      .then(() => {
         setLoading(false);
       });
   };
@@ -129,7 +137,8 @@ const HomeScreen = (props: IHomeScreenProps) => {
               <Stack direction="horizontal" gap={3}>
                 <DatePicker
                   select={(newValue) => {
-                    setDate(newValue);
+                    setRequestFeedback({ type: "none" });
+                    select(newValue);
                   }}
                   maxDays={3}
                 />
@@ -180,17 +189,20 @@ const HomeScreen = (props: IHomeScreenProps) => {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <FilterContextProvider value={filterOptions}>
-            {usingMobileUi ? (
-              <SubstitutionList substitutions={renderedSubstitutions} />
-            ) : (
-              <SubstitutionTable
-                substitutions={renderedSubstitutions}
-                relevantOnly={filteringRelevant}
-                ignoreSubjects={ignoringSubjects}
-              />
-            )}
-          </FilterContextProvider>
+          {!data[selectString] ? (
+            <Spinner animation="border" />
+          ) : ["status", "message", "description"].every((a) => a in data[selectString]) ? (
+            <Alert variant="danger">
+              <h1>{(data[selectString] as APIError).message}</h1>
+              {(data[selectString] as APIError).description}
+            </Alert>
+          ) : (
+            <SubstitutionTable
+              substitutions={data[DateFormatter.apiDateString(selection)] as Substitution[]}
+              relevantOnly={filteringRelevant}
+              ignoreSubjects={ignoringSubjects}
+            />
+          )}
         </ListGroup.Item>
 
         <ListGroup.Item>

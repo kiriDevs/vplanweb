@@ -1,8 +1,3 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import ListGroup from "react-bootstrap/ListGroup";
-import Spinner from "react-bootstrap/Spinner";
-import Stack from "react-bootstrap/Stack";
 import { APIError } from "../types/api/APIError";
 import { Substitution } from "../types/Substitution";
 import { handleCheckboxChange } from "../util/handleInputChange";

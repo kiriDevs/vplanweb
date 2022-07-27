@@ -30,8 +30,6 @@ const App = () => {
             showSettings={() => {
               showSettings(true);
             }}
-            renderedSubstitutions={renderedSubstitutions}
-            renderSubstitutions={renderSubstitutions as Dispatch<SetStateAction<Substitution[]>>}
           />
         )}
       </RESTContext.Provider>

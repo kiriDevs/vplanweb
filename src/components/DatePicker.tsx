@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DropdownButton from "react-bootstrap/esm/DropdownButton";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DateFormatter from "../util/DateFormatter";
-import { isWeekend } from "../util/dateUtil";
+import { getNextSchooldays } from "../util/dateUtil";
 
 interface IDatePickerProps {
   select: (newValue: Date) => void;
@@ -14,20 +14,9 @@ const DatePicker = (props: IDatePickerProps) => {
   const [selection, select] = useState(options[0]);
 
   useEffect(() => {
-    let genOptions = [];
-    let itDate = new Date();
-
-    while (genOptions.length < props.maxDays) {
-      if (!isWeekend(itDate)) {
-        genOptions.push(new Date(itDate));
-      }
-
-      itDate.setDate(itDate.getDate() + 1);
-    }
-
-    setOptions(genOptions);
-    select(genOptions[0]);
-    props.select(genOptions[0]);
+    const _options = getNextSchooldays(3);
+    setOptions(_options);
+    select(_options[0]);
   }, [props.maxDays]);
 
   return (

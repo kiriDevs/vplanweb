@@ -4,7 +4,8 @@ import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import { shared as StorageManager } from "../util/StorageManager";
 
-import { Substitution } from "../types/Substitution";
+import REST from "../services/rest/REST";
+import RESTContext from "../services/rest/RESTContext";
 
 import "../styles/general.css";
 
@@ -15,18 +16,24 @@ const App = () => {
     StorageManager.startup();
   }, []);
 
-  return showingSettings ? (
-    <SettingsScreen
-      dismiss={() => {
-        showSettings(false);
-      }}
-    />
-  ) : (
-    <HomeScreen
-      showSettings={() => {
-        showSettings(true);
-      }}
-    />
+  return (
+    <>
+      <RESTContext.Provider value={new REST(window.localStorage.getItem("auth.token") || "")}>
+        {showingSettings ? (
+          <SettingsScreen
+            dismiss={() => {
+              showSettings(false);
+            }}
+          />
+        ) : (
+          <HomeScreen
+            showSettings={() => {
+              showSettings(true);
+            }}
+          />
+        )}
+      </RESTContext.Provider>
+    </>
   );
 };
 

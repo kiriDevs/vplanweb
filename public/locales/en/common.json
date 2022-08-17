@@ -6,5 +6,10 @@
     "save": "Save",
     "cancel": "Cancel"
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "nth-period": "{{n}}. period",
+  "entries": {
+    "one": "entry",
+    "more": "{{n}} entries"
+  }
 }

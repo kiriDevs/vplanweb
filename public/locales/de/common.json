@@ -8,5 +8,8 @@
   },
   "loading": "Laden...",
   "nth-period": "{{n}}. Stunde",
-  "n-entries": "{{n}} Einträge"
+  "entries": {
+    "one": "Eintrag",
+    "more": "{{n}} Einträge"
+  }
 }

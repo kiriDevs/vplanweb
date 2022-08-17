@@ -1,30 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import { useTranslation } from "react-i18next";
 import { Substitution } from "../types/Substitution";
 import SubstitutionTableRow from "./SubstitutionTableRow";
 import getRenderStyle from "../util/relevancyFilter";
+import FilterContext from "../context/FilterContext";
 
 interface ISubstitutionTableProps {
   substitutions: Substitution[];
-  relevantOnly: boolean;
-  ignoreSubjects: boolean;
 }
 
 const SubstitutionTable = (props: ISubstitutionTableProps) => {
-  const [filterClass] = useState(window.localStorage.getItem("filter.class")!);
-  const [filterSubjects] = useState(JSON.parse(window.localStorage.getItem("filter.subjects")!));
-
+  const filterOptions = useContext(FilterContext);
   const { t } = useTranslation("HomeScreen", { keyPrefix: "substitutionTable" });
-
-  const filterOptions = {
-    class: filterClass,
-    subjects: filterSubjects,
-    filterMode: {
-      filtering: props.relevantOnly,
-      ignoringSubjects: props.ignoreSubjects
-    }
-  };
 
   return (
     <Table>

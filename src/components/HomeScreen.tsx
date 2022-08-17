@@ -35,6 +35,19 @@ const HomeScreen = (props: IHomeScreenProps) => {
     JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
   );
 
+  const [usingMobileUi, useMobileUi] = useState(window.innerWidth <= 500);
+  useEffect(() => {
+    const resizeListener = () => {
+      useMobileUi(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, []);
+
   const rest = useContext(RESTContext);
   const { t } = useTranslation("HomeScreen");
   const { t: tc } = useTranslation("common");
@@ -197,11 +210,13 @@ const HomeScreen = (props: IHomeScreenProps) => {
               {(data[selectString] as APIError).description}
             </Alert>
           ) : (
-            <SubstitutionTable
-              substitutions={data[DateFormatter.apiDateString(selection)] as Substitution[]}
-              relevantOnly={filteringRelevant}
-              ignoreSubjects={ignoringSubjects}
-            />
+            <FilterContextProvider value={filterOptions}>
+              {usingMobileUi ? (
+                <SubstitutionList substitutions={data[DateFormatter.apiDateString(selection)] as Substitution[]} />
+              ) : (
+                <SubstitutionTable substitutions={data[DateFormatter.apiDateString(selection)] as Substitution[]} />
+              )}
+            </FilterContextProvider>
           )}
         </ListGroup.Item>
 

@@ -98,7 +98,9 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
         {validEntries.map((substitution: Substitution) => (
           <SubstitutionListCell
             substitution={substitution}
-            key={`#-mobile-accordion-section${props.period.toString()}-${substitution.class}|${substitution.subject}`}
+            key={`#-mobile-accordion-section${props.period.toString()}-${substitution.class}|${substitution.subject}|${
+              substitution.room
+            }`}
           />
         ))}
 

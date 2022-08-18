@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, SyntheticEvent } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -80,6 +80,20 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
   const handleSubjectDeleteButtonClick = (index: number) => () => {
     setSubjectsInput(subjectsInput.filter((_: string, inx: number) => inx !== index));
   };
+
+  useEffect(() => {
+    const escListener = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        saveSettings();
+      }
+    };
+
+    document.addEventListener("keydown", escListener);
+    return () => {
+      document.removeEventListener("keydown", escListener);
+    };
+  });
 
   return (
     <>

@@ -1,4 +1,4 @@
-name: Link code base
+name: Lint code base
 
 on:
   push:

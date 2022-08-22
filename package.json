@@ -21,7 +21,6 @@
     "prettier:check": "prettier --check src/ public/ --ignore-path .prettierignore",
     "prettier:ci": "npx prettier --check src/ public/ --ignore-path .prettierignore",
     "lint": "eslint src/**/*.ts{,x}",
-    "lint:ci": "npx eslint src/**/*.ts{,x}",
     "prepare": "husky install"
   },
   "eslintConfig": {

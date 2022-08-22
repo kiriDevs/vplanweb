@@ -17,5 +17,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install project in CI mode
+        run: npm ci
+
       - name: Lint code base
-        run: npm run lint:ci
+        run: npm run lint

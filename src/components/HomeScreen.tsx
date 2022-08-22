@@ -5,7 +5,7 @@ import SubstitutionTable from "./SubstitutionTable";
 import { IoSend } from "react-icons/io5";
 import RequestFeedbackAlert from "./RequestFeedbackAlert";
 import RequestFeedback from "../types/RequestFeedback";
-import { useState, Dispatch, SetStateAction, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import DatePicker from "./DatePicker";
 import { getNextSchooldays } from "../util/dateUtil";
@@ -35,10 +35,10 @@ const HomeScreen = (props: IHomeScreenProps) => {
     JSON.parse(window.localStorage.getItem("filter.ignoreSubjects")!)
   );
 
-  const [usingMobileUi, useMobileUi] = useState(window.innerWidth <= 500);
+  const [usingMobileUi, enableMobileUi] = useState(window.innerWidth <= 500);
   useEffect(() => {
     const resizeListener = () => {
-      useMobileUi(window.innerWidth <= 500);
+      enableMobileUi(window.innerWidth <= 500);
     };
 
     window.addEventListener("resize", resizeListener);

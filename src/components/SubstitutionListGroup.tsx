@@ -5,7 +5,7 @@ import { Substitution } from "../types/Substitution";
 import SubstitutionListCell from "./SubstitutionListCell";
 import { Badge, ListGroupItem, Stack } from "react-bootstrap";
 import getRenderStyle from "../util/relevancyFilter";
-import { useContext, useEffect, useState, useTransition } from "react";
+import { useContext, useEffect, useState } from "react";
 import FilterContext from "../context/FilterContext";
 import { useTranslation } from "react-i18next";
 
@@ -52,12 +52,12 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
     setValidEntries(valid);
     setInvalidEntries(invalid);
 
-    const fullMatches = props.substitutions.filter((sub) => getRenderStyle(sub, filterOptions) == "full");
+    const fullMatches = props.substitutions.filter((sub) => getRenderStyle(sub, filterOptions) === "full");
     setFullMatchCount(fullMatches.length);
 
-    const partialMatches = props.substitutions.filter((sub) => getRenderStyle(sub, filterOptions) == "partial");
+    const partialMatches = props.substitutions.filter((sub) => getRenderStyle(sub, filterOptions) === "partial");
     setPartialMatchCount(partialMatches.length);
-  }, [props.substitutions]);
+  }, [props.substitutions, filterOptions]);
 
   return (
     <AccordionItem eventKey={`#-mobile-accordion-section${props.period.toString()}`} className="show">

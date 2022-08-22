@@ -1,0 +1,24 @@
+name: Lint code base
+
+on:
+  push:
+    paths:
+      - "src/**"
+  pull_request:
+    paths:
+      - "src/**"
+
+jobs:
+  prettier:
+    name: ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install project in CI mode
+        run: npm ci
+
+      - name: Lint code base
+        run: npm run lint

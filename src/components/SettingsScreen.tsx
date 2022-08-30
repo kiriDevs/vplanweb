@@ -81,6 +81,20 @@ const SettingsScreen = (props: ISettingsScreenProps) => {
     setSubjectsInput(subjectsInput.filter((_: string, inx: number) => inx !== index));
   };
 
+  useEffect(() => {
+    const escListener = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        saveSettings();
+      }
+    };
+
+    document.addEventListener("keydown", escListener);
+    return () => {
+      document.removeEventListener("keydown", escListener);
+    };
+  });
+
   return (
     <>
       <h1 className="vplan-heading">{t("title")}</h1>

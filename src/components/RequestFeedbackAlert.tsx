@@ -1,5 +1,5 @@
 import Alert from "react-bootstrap/Alert";
-import { Trans, useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 import RequestFeedback from "../types/RequestFeedback";
 
 interface IRequestFeedbackAlertProps {
@@ -8,8 +8,6 @@ interface IRequestFeedbackAlertProps {
 }
 
 const RequestFeedbackAlert = (props: IRequestFeedbackAlertProps) => {
-  const { t } = useTranslation("HomeScreen");
-
   if (props.feedback.type === "none") {
     return <></>;
   }

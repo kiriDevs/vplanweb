@@ -3,7 +3,7 @@ import AccordionBody from "react-bootstrap/esm/AccordionBody";
 import AccordionItem from "react-bootstrap/esm/AccordionItem";
 import { Substitution } from "../types/Substitution";
 import SubstitutionListCell from "./SubstitutionListCell";
-import { Badge, ListGroupItem, Stack } from "react-bootstrap";
+import { ListGroupItem, Stack } from "react-bootstrap";
 import getRenderStyle from "../util/relevancyFilter";
 import { useContext, useEffect, useState } from "react";
 import FilterContext from "../context/FilterContext";

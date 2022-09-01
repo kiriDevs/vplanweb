@@ -8,6 +8,7 @@ import getRenderStyle from "../util/relevancyFilter";
 import { useContext, useEffect, useState } from "react";
 import FilterContext from "../context/FilterContext";
 import { useTranslation } from "react-i18next";
+import PlanBadgeGroup from "./PlanBadgeGroup";
 
 type validOrInvalid = "valid" | "invalid";
 
@@ -73,25 +74,7 @@ const SubstitutionListGroup = (props: ISubstitutionListGroupProps) => {
               </span>
             )}
           </Stack>
-          <Stack direction="horizontal" className="ms-auto" gap={1} style={{ paddingRight: "0.6em" }}>
-            {partialMatchCount > 0 && (
-              <Badge bg="secondary" pill>
-                {partialMatchCount}
-              </Badge>
-            )}
-
-            {fullMatchCount > 0 && (
-              <Badge bg="primary" pill>
-                {fullMatchCount}
-              </Badge>
-            )}
-
-            {invalidEntries.length > 0 && (
-              <Badge bg="danger" pill>
-                {invalidEntries.length}
-              </Badge>
-            )}
-          </Stack>
+          <PlanBadgeGroup partial={partialMatchCount} full={fullMatchCount} invalid={invalidEntries.length} />
         </Stack>
       </AccordionHeader>
       <AccordionBody className="p-0">

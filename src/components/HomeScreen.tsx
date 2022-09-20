@@ -55,7 +55,11 @@ const HomeScreen = (props: IHomeScreenProps) => {
   const selectString = DateFormatter.apiDateString(selection);
 
   useEffect(() => {
-    setDateOptions(getNextSchooldays(3));
+    const options = getNextSchooldays(3);
+    setDateOptions(options);
+
+    // Always select the first option (-> weekends)
+    select(options[0]);
   }, []);
 
   useEffect(() => {

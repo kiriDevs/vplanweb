@@ -115,7 +115,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
 
   const handleFilterSwitch = (newValue: boolean) => {
     if (newValue === false) {
-      ignoreSubjects(false);
+      handleIgnoreSubjectsSwitch(false);
     }
 
     filterRelevant(newValue);

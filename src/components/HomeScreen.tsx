@@ -227,7 +227,7 @@ const HomeScreen = (props: IHomeScreenProps) => {
         <ListGroup.Item>
           <Stack>
             <p>
-              <Trans ns="HomeScreen" i18nKey="footer.copyright" values={{ maintainer: "kiriDevs", year: 2022 }}>
+              <Trans ns="HomeScreen" i18nKey="footer.copyright" values={{ maintainer: "kiriDevs", year: 2023 }}>
                 <a href="https://kiriDevs.de">kiriDevs</a>
                 <a href="https://kiridevs.de/vplanweb/contributors">contributors</a>
               </Trans>

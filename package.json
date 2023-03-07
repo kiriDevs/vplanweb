@@ -15,6 +15,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "_build": "vite build",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prettier:write": "prettier --write src/ public/ --ignore-path .prettierignore",
